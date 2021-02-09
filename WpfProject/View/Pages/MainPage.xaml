@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page 
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:vm="clr-namespace:WpfProject.ViewModel.Pages" xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase" xmlns:dat="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Page.DataContext>
+        <vm:MainPageVM></vm:MainPageVM>
+    </Page.DataContext>
+
+    <Page.Resources>
+        <Style x:Key="Grey" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12"></Setter>
+            <Setter Property="Foreground" Value="Gray"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+            <Setter Property="Margin" Value="5"></Setter>
+        </Style>
+        <Style x:Key="GreyBox" TargetType="RadioButton">
+            <Setter Property="FontSize" Value="12"></Setter>
+            <Setter Property="Foreground" Value="Gray"></Setter>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="Background" Value="White"></Setter>
+        </Style>
+
+        
+    </Page.Resources>
+
+    <Page.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <!-- ListBox -->
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Background="White"> 
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="5"> 
+                        <Button Content="ID" Command="{Binding ClickSortById}"/>
+                    </TextBlock>
+                    <TextBlock Margin="120,5,5,5">
+                        <Button Content="Имя"/> 
+                    </TextBlock>
+                    <TextBlock Margin="100,5,5,5">
+                        <Button Content="Время Начала"/>  
+                    </TextBlock>
+                    <TextBlock Margin="40,5,5,5">
+                        <Button Content="Время прошло"/> 
+                    </TextBlock>
+                </StackPanel>
+                </TextBlock>
+                <ListBox Grid.Row="1" ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer}" Visibility="{Binding ListBoxVisibility}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <UniformGrid Columns="4">
+                                <UniformGrid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Margin" Value="5"/>
+                                        <Setter Property="TextAlignment" Value="Left"/>
+                                    </Style>
+                                </UniformGrid.Resources>
+
+                                <TextBlock Text="{Binding id}"/>
+                                <TextBlock Text="{Binding name}"/>
+                                <TextBlock Text="{Binding start_time}"/>
+                                <TextBlock Text="{Binding elapsed_time}"/>
+                            </UniformGrid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+            <!-- ListBox buttons -->
+            <Grid Grid.Row="1" Visibility="{Binding ListBoxVisibility}" Background="White">
+                <StackPanel Orientation="Horizontal">
+                    <Button Margin="10" Content="{StaticResource Add_Icon}" Command="{Binding ClickAdd}"></Button>
+                    <Button Margin="10" Content="{StaticResource Delete_Icon}" Command="{Binding ClickDelete}"></Button>
+                    <Button Margin="10" Content="{StaticResource Stop_Icon}" Command="{Binding ClickStop}"></Button>
+                    <Button Margin="10" Content="{StaticResource Edit_Icon}" Command="{Binding ClickFinalise}"></Button>
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <Button Width="100" Margin="4" Content="Сохранить" Command="{Binding ClickSave}"></Button>
+                        <Button Width="100" Margin="4" Content="Загрузить" Command="{Binding ClickLoad}"></Button>
+                        <TextBlock Margin="4" TextAlignment="Center" Text="{Binding SaveText.Value}"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+            <!-- Finalise -->
+            <Grid Grid.Row="0" Visibility="{Binding FinaliseMenuVisibility}" Background="White">
+                <StackPanel>
+                    <TextBlock>
+                        <TextBlock Text="{Binding FinalisedCustomer.id, StringFormat=Id : {0}}"></TextBlock>
+                        <TextBlock Text="{Binding FinalisedCustomer.name, StringFormat=Имя : {0}}"></TextBlock>
+                    </TextBlock>
+                    <TextBlock>
+                        <TextBlock Text="{Binding FinalisedCustomer.start_time, StringFormat=Начало : {0}}"></TextBlock>
+                        <TextBlock Text="{Binding FinalisedCustomer.elapsed_time.TotalMinutes, StringFormat=Прошло : {0}}"></TextBlock>
+                    </TextBlock>
+                    <TextBlock Text="{Binding FinalisedCustomer.tariff, StringFormat=Тариф : {0}}"></TextBlock>
+                </StackPanel>
+            </Grid>
+            <!-- Finalise buttons -->
+            <Grid Grid.Row="1" Visibility="{Binding FinaliseMenuVisibility}">
+                <StackPanel Orientation="Horizontal">
+                    <Button Width="100" Margin="10" Content="Finish"></Button>
+                    <Button Width="100" Margin="10" Content="Stop"></Button>
+                    <Button Width="100" Margin="10" Content="Finalise" Command="{Binding ClickFinalise}"></Button>
+                </StackPanel>
+            </Grid>
+
+            <!-- AddMenu -->
+            <Grid Grid.Row="0" Visibility="{Binding AddMenuVisibility}" Background="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="21*"/>
+                    <ColumnDefinition Width="97*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Style="{StaticResource Grey}">Имя:</TextBlock>
+                    <TextBlock Style="{StaticResource Grey}" Text="Тариф:"></TextBlock>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBlock Margin="7">
+                        <TextBox Text="{Binding NewCustomer.name}" Height="17" Width="100"></TextBox>
+                    </TextBlock>
+                    <TextBlock Margin="3">
+                        <RadioButton Style="{StaticResource GreyBox}" GroupName="Tariff" Content="Почасовой" IsChecked="{Binding HourTariffIsChecked}"/>
+                        <RadioButton Style="{StaticResource GreyBox}" GroupName="Tariff" Content="Поминутный" IsChecked="{Binding MinuteTariffIsChecked}"/>
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+            <!-- AddMenu buttons -->
+            <Grid Grid.Row="1" Visibility="{Binding AddMenuVisibility}">
+                <StackPanel Orientation="Horizontal">
+                    <Button Width="100" Margin="10" Content="Завершить" Command="{Binding ClickAddingFinish}"></Button>
+                    <Button Width="100" Margin="10" Content="Назад" Command="{Binding ClickAddingBack}"></Button>
+                </StackPanel>    
+            </Grid>
+
+        </Grid>
+    </Page.Content>
+
+
+</Page>

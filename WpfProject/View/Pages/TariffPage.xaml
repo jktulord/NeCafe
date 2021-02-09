@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:vm="clr-namespace:WpfProject.ViewModel.Pages" xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase" xmlns:dat="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Page.DataContext>
+        <vm:TariffPageVM></vm:TariffPageVM>
+    </Page.DataContext>
+    
+    <Page.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="600"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Background="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Margin="25">
+                    <TextBlock Text="Имя"></TextBlock>
+                    <TextBox Width="100" HorizontalAlignment="Left" Text="{Binding Cur_Tariff.name}"></TextBox>
+                    <TextBlock>
+                        <TextBox Margin="5" Width="30" HorizontalAlignment="Left" Text="{Binding Cur_Tariff.default_calculation_value}"></TextBox>
+                        <TextBlock Margin="0,-10,0,0" Text="рублей за" HorizontalAlignment="Center"></TextBlock>
+                        <ComboBox Margin="5,5,5,5" SelectedValue="{Binding Cur_Tariff.default_calculation_type}">
+                            <TextBlock Text="Минуту"></TextBlock>
+                            <TextBlock Text="Час"></TextBlock>
+                            <TextBlock Text="Стоп-Чек"></TextBlock>
+                        </ComboBox>
+                    </TextBlock>
+                    <TextBlock>
+                        <CheckBox Margin="0,0,0,15" FontSize="11" IsChecked="{Binding Cur_Tariff.is_there_condition}">Условие</CheckBox>
+                        <TextBlock Margin="0,-10,0,0" Text="После"></TextBlock>
+                        <TextBox Margin="5" Width="30" HorizontalAlignment="Left" Text="{Binding Cur_Tariff.condition_value}"></TextBox>
+                        <ComboBox Margin="0,5,5,5" SelectedValue="{Binding Cur_Tariff.condition_type}">
+                            <TextBlock Text="Минут"></TextBlock>
+                            <TextBlock Text="Часов"></TextBlock>
+                        </ComboBox>
+                        
+                        <ComboBox Margin="5,5,5,5" SelectedValue="{Binding Cur_Tariff.condition_result_type}">
+                            <TextBlock Text="Общее время вычисляется по"></TextBlock>
+                            <TextBlock Text="Следующее время считается по"></TextBlock>
+                            <TextBlock Text="----"></TextBlock>
+                        </ComboBox>
+                        <TextBox Margin="5" Width="30" HorizontalAlignment="Left" Text="{Binding Cur_Tariff.conditional_calculation_value}"></TextBox>
+                        <TextBlock Margin="0,-10,0,0" Text="рублей за" HorizontalAlignment="Center"></TextBlock>
+                        <ComboBox Margin="5,5,5,5" SelectedValue="{Binding Cur_Tariff.conditional_calculation_type}">
+                            <ComboBoxItem Content="Минуту"></ComboBoxItem>
+                            <ComboBoxItem Content="Час"></ComboBoxItem>
+                            <ComboBoxItem Content="Стоп-Чек"></ComboBoxItem>
+                        </ComboBox>
+                    </TextBlock>
+                    <TextBlock Text="{Binding FinalisedCustomer.tariff, StringFormat=Тариф : {0}}"></TextBlock>
+                </StackPanel>
+            </Grid>
+            <!-- Finalise buttons -->
+            <Grid Grid.Row="1" Visibility="{Binding FinaliseMenuVisibility}">
+                <StackPanel Orientation="Horizontal">
+                    <Button Width="100" Margin="10" Content="Finish"></Button>
+                    <Button Width="100" Margin="10" Content="Stop"></Button>
+                    <Button Width="100" Margin="10" Content="Finalise" Command="{Binding ClickFinalise}"></Button>
+
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Page.Content>
+
+</Page>
