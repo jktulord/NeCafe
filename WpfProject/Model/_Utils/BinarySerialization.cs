@@ -17,7 +17,7 @@ namespace Console_prototype.Utils
         }
 
 
-        public static T ReadFromBinaryFile<T>(string filePath)
+        public static T ReadFromBinaryFile<T>(String filePath)
         {
             using (Stream stream = File.Open(filePath, FileMode.Open))
             {

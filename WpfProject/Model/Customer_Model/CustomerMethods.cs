@@ -2,14 +2,9 @@
 using Console_prototype.Utils;
 using Model.Customer_Model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
-using WpfProject.ViewModel.Pages;
 
 namespace WpfProject.Model
 {
@@ -33,7 +28,7 @@ namespace WpfProject.Model
         public static ObservableCollection<Customer> Add_Customer(ObservableCollection<Customer> customers)
         {
             Random rnd = new Random();
-            customers.Add(new Customer("Иван"+Convert.ToString(rnd.Next(1, 99)), 1+customers.Count, DateTime.Now, ConstLib.Calculation_Minute));
+            customers.Add(new Customer("Иван"+Convert.ToString(rnd.Next(1, 99)), 1+customers.Count, DateTime.Now, new Tariff_Model.Tariff()));
             return customers;
         }
         public static ObservableCollection<Customer> Add_Custom_Customer(ObservableCollection<Customer> customers, Customer customer, bool MinuteTariff, bool HourTarriff)
@@ -48,7 +43,7 @@ namespace WpfProject.Model
             {
                 tariff = ConstLib.Calculation_Hour;
             }
-            customers.Add(new Customer(customer.name, 1 + customers.Count, DateTime.Now, tariff));
+            customers.Add(new Customer(customer.name, 1 + customers.Count, DateTime.Now, new Tariff_Model.Tariff()));
             return customers;
         }
         public static void Update(ObservableCollection<Customer> customers)
@@ -68,13 +63,18 @@ namespace WpfProject.Model
             {
                 converted_customers.Add(cur.convertedCustomer);
             }
-            BinarySerialization.WriteToBinaryFile<ObservableCollection<ConvertedCustomer>>("C:/Users/user/source/repos/WpfProject/WpfProject/Savefiles/CustomerData.bin", converted_customers);
+            String path = Directory.GetCurrentDirectory();
+            path = path.Substring(0, path.IndexOf("bin\\Debug")) + "/Savefiles/CustomerData.bin";
+            BinarySerialization.WriteToBinaryFile<ObservableCollection<ConvertedCustomer>>(path, converted_customers);
             SaveText.Value = "Saved";
         }
         public static ObservableCollection<Customer> Load(ObservableCollection<Customer> customers)
         {
             customers = Init_Customer();
-            ObservableCollection<ConvertedCustomer> converted_customers = BinarySerialization.ReadFromBinaryFile<ObservableCollection<ConvertedCustomer>>("C:/Users/user/source/repos/WpfProject/WpfProject/Savefiles/CustomerData.bin");
+
+            String path = Directory.GetCurrentDirectory();
+            path = path.Substring(0, path.IndexOf("bin\\Debug")) + "/Savefiles/CustomerData.bin";
+            ObservableCollection<ConvertedCustomer> converted_customers = BinarySerialization.ReadFromBinaryFile<ObservableCollection<ConvertedCustomer>>(path);
             int i = 0;
             foreach (ConvertedCustomer cur in converted_customers)
             {

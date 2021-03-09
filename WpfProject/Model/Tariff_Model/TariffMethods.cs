@@ -67,7 +67,10 @@ namespace WpfProject.Model.Tariff_Model
             ObservableCollection<Tariff> new_list = new ObservableCollection<Tariff>();
             foreach (Tariff cur in list)
             {
-                new_list
+                if (cur.is_it_available_today is true)
+                {
+                    new_list.Add(cur);
+                }
             }
             
             return new_list;

@@ -271,6 +271,20 @@ namespace WpfProject.ViewModel.Pages
             FinaliseMenuVisibility = ConstLib.Visible;
             AddMenuVisibility = ConstLib.Hidden;
         }
+        public void Autoload()
+        {
+            try
+            {
+                CustomerList = CustomerMethods.Load(CustomerList);
+                SaveText.Value = "Data Loaded";
+            }
+            catch
+            {
+
+                SaveText.Value = "Data created";
+                CustomerList = CustomerMethods.Init_Customer();
+            }
+        }
 
         public MainPageVM()
         {
@@ -278,8 +292,8 @@ namespace WpfProject.ViewModel.Pages
             SwitchToAddMenu();
             UpdateTime = 10;
             CustomerList = CustomerMethods.Init_Customer();
-            CustomerList = CustomerMethods.Load(CustomerList);
-            EditCustomer = new Customer("Иван", 0, DateTime.Now, ConstLib.Calculation_Minute);
+            Autoload();
+            EditCustomer = new Customer("Иван", 0, DateTime.Now, new Model.Tariff_Model.Tariff());
 
 
             Task.Factory.StartNew(() =>
