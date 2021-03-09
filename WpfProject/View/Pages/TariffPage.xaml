@@ -5,62 +5,168 @@
     <Page.DataContext>
         <vm:TariffPageVM></vm:TariffPageVM>
     </Page.DataContext>
+
+    
     
     <Page.Content>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="600"/>
-                <RowDefinition Height="100"/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Background="White">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Margin="25">
-                    <TextBlock Text="Имя"></TextBlock>
-                    <TextBox Width="100" HorizontalAlignment="Left" Text="{Binding Cur_Tariff.name}"></TextBox>
+            <!-- Tariff list box -->
+            <Grid Visibility="{Binding state.ListBoxVisibility}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Background="White">
                     <TextBlock>
-                        <TextBox Margin="5" Width="30" HorizontalAlignment="Left" Text="{Binding Cur_Tariff.default_calculation_value}"></TextBox>
-                        <TextBlock Margin="0,-10,0,0" Text="рублей за" HorizontalAlignment="Center"></TextBlock>
-                        <ComboBox Margin="5,5,5,5" SelectedValue="{Binding Cur_Tariff.default_calculation_type}">
-                            <TextBlock Text="Минуту"></TextBlock>
-                            <TextBlock Text="Час"></TextBlock>
-                            <TextBlock Text="Стоп-Чек"></TextBlock>
-                        </ComboBox>
+                    <TextBlock Text="Вид:"/>
+                    <ComboBox></ComboBox>
+                    <TextBlock Text="{Binding SaveText.Value}"/>
                     </TextBlock>
-                    <TextBlock>
-                        <CheckBox Margin="0,0,0,15" FontSize="11" IsChecked="{Binding Cur_Tariff.is_there_condition}">Условие</CheckBox>
-                        <TextBlock Margin="0,-10,0,0" Text="После"></TextBlock>
-                        <TextBox Margin="5" Width="30" HorizontalAlignment="Left" Text="{Binding Cur_Tariff.condition_value}"></TextBox>
-                        <ComboBox Margin="0,5,5,5" SelectedValue="{Binding Cur_Tariff.condition_type}">
-                            <TextBlock Text="Минут"></TextBlock>
-                            <TextBlock Text="Часов"></TextBlock>
-                        </ComboBox>
                         
-                        <ComboBox Margin="5,5,5,5" SelectedValue="{Binding Cur_Tariff.condition_result_type}">
-                            <TextBlock Text="Общее время вычисляется по"></TextBlock>
-                            <TextBlock Text="Следующее время считается по"></TextBlock>
-                            <TextBlock Text="----"></TextBlock>
-                        </ComboBox>
-                        <TextBox Margin="5" Width="30" HorizontalAlignment="Left" Text="{Binding Cur_Tariff.conditional_calculation_value}"></TextBox>
-                        <TextBlock Margin="0,-10,0,0" Text="рублей за" HorizontalAlignment="Center"></TextBlock>
-                        <ComboBox Margin="5,5,5,5" SelectedValue="{Binding Cur_Tariff.conditional_calculation_type}">
-                            <ComboBoxItem Content="Минуту"></ComboBoxItem>
-                            <ComboBoxItem Content="Час"></ComboBoxItem>
-                            <ComboBoxItem Content="Стоп-Чек"></ComboBoxItem>
-                        </ComboBox>
-                    </TextBlock>
-                    <TextBlock Text="{Binding FinalisedCustomer.tariff, StringFormat=Тариф : {0}}"></TextBlock>
+                </StackPanel>
+              
+                <ListBox Grid.Row="1" ItemsSource="{Binding TariffList}" SelectedItem="{Binding SelectedTariff}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <UniformGrid Columns="4">
+                                <UniformGrid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Margin" Value="5"/>
+                                        <Setter Property="TextAlignment" Value="Left"/>
+                                    </Style>
+                                </UniformGrid.Resources>
+                                <TextBlock>
+                                    <CheckBox IsChecked="{Binding is_it_available_today}"></CheckBox>
+                                    <TextBlock Text="{Binding name}"/>
+                                </TextBlock>
+                                <TextBlock>
+                                    <TextBlock Text="{Binding default_calculation_value}"/>
+                                    <TextBlock Text="за"/>
+                                    <TextBlock Text="{Binding default_calculation_type}"/>
+                                </TextBlock>
+                                <TextBlock>
+                                    <CheckBox IsChecked="{Binding is_there_condition}" IsEnabled="False"> </CheckBox>
+                                    <TextBlock Text="Доп. Условие"></TextBlock>
+                                </TextBlock>
+                            </UniformGrid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <!-- Tariff list box buttons -->
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    <Button Width="50" Margin="10" Content="{StaticResource Add_Icon}" Command="{Binding Add_command}"></Button>
+                    <Button Width="50" Margin="10" Content="{StaticResource Edit_Icon}" Command="{Binding Edit_command}"></Button>
+                    <Button Width="50" Margin="10" Content="Save" Command="{Binding Save_command}"></Button>
                 </StackPanel>
             </Grid>
-            <!-- Finalise buttons -->
-            <Grid Grid.Row="1" Visibility="{Binding FinaliseMenuVisibility}">
-                <StackPanel Orientation="Horizontal">
-                    <Button Width="100" Margin="10" Content="Finish"></Button>
-                    <Button Width="100" Margin="10" Content="Stop"></Button>
-                    <Button Width="100" Margin="10" Content="Finalise" Command="{Binding ClickFinalise}"></Button>
+            
+            
+            <!-- Tariff adding -->
+            <Grid Visibility="{Binding state.AddMenuVisibility}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="White" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="25">
+                        <TextBlock Text="Имя"/>
+                        <TextBox Width="100" HorizontalAlignment="Left" Text="{Binding SelectedTariff.name}"/>
+                        <TextBlock>
+                            <TextBox Margin="5" Width="30" HorizontalAlignment="Left" Text="{Binding SelectedTariff.default_calculation_value}"/>
+                            <TextBlock Margin="0,-10,0,0" Text="рублей за" HorizontalAlignment="Center"></TextBlock>
+                            <ComboBox 
+                                Margin="5,5,5,5" 
+                                      ItemsSource="{Binding calculation_types}" 
+                                      SelectedValue="{Binding SelectedTariff.default_calculation_type}"/>
+                        </TextBlock>
+                        <TextBlock>
+                            <CheckBox Margin="0,0,0,15" FontSize="11" IsChecked="{Binding SelectedTariff.is_there_condition}" />
+                            <TextBlock Margin="0,-10,0,0" Text="После"></TextBlock>
+                            <TextBox Margin="5" Width="30" HorizontalAlignment="Left" Text="{Binding SelectedTariff.condition_value}"></TextBox>
+                            <ComboBox 
+                                Margin="0,5,5,5" 
+                                ItemsSource="{Binding condition_types}" 
+                                SelectedValue="{Binding SelectedTariff.condition_type}"/>
+                            <ComboBox 
+                                Margin="5,5,5,5" 
+                                ItemsSource="{Binding condition_result_types}" 
+                                SelectedValue="{Binding SelectedTariff.condition_result_type}"/>
+                            <TextBox Margin="5" Width="30" HorizontalAlignment="Left" Text="{Binding Cur_Tariff.conditional_calculation_value}"/>
+                            <TextBlock Margin="0,-10,0,0" Text="рублей за" HorizontalAlignment="Center"/>
+                            <ComboBox 
+                                Margin="5,5,5,5" 
+                                ItemsSource="{Binding calculation_types}" 
+                                SelectedValue="{Binding SelectedTariff.conditional_calculation_type}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+                <!-- Tariff adding -->
+                <Grid Grid.Row="1">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Width="100" Margin="10" Content="{StaticResource Check_Icon}" Command="{Binding Confirm_command}"></Button>
+                        <Button Width="100" Margin="10" Content="{StaticResource Clear_Icon}" Command="{Binding Cancel_command}"></Button>
+                    </StackPanel>
+                </Grid>
 
-                </StackPanel>
+            </Grid>
+            <Grid Visibility="{Binding state.FinaliseMenuVisibility}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="White" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="25">
+                        <TextBlock Text="Имя"></TextBlock>
+                        <TextBox Width="100" HorizontalAlignment="Left" Text="{Binding SelectedTariff.name}"></TextBox>
+                        
+                        <TextBlock>
+                            <TextBox Margin="5" Width="30" HorizontalAlignment="Left" Text="{Binding SelectedTariff.default_calculation_value}"></TextBox>
+                            <TextBlock Margin="0,-10,0,0" Text="рублей за" HorizontalAlignment="Center"></TextBlock>
+                            <ComboBox Margin="5,5,5,5" ItemsSource="{Binding calculation_types}" SelectedValue="{Binding SelectedTariff.default_calculation_type}">
+                            </ComboBox>
+                        </TextBlock>
+                        
+                        <TextBlock>
+                            <CheckBox Margin="0,0,0,15" FontSize="11" IsChecked="{Binding SelectedTariff.is_there_condition}">Условие</CheckBox>
+                            <TextBlock Margin="0,-10,0,0" Text="После"></TextBlock>
+                            <TextBox Margin="5" Width="30" HorizontalAlignment="Left" Text="{Binding SelectedTariff.condition_value}"></TextBox>
+                            <ComboBox 
+                                Margin="0,5,5,5" 
+                                ItemsSource="{Binding condition_types}" 
+                                SelectedValue="{Binding SelectedTariff.condition_type}">
+                            </ComboBox>
+                            <ComboBox 
+                                Margin="5,5,5,5" 
+                                ItemsSource="{Binding condition_result_types}" 
+                                SelectedValue="{Binding Cur_Tariff.condition_result_type}">
+                            </ComboBox>
+                            <TextBox Margin="5" Width="30" HorizontalAlignment="Left" Text="{Binding Cur_Tariff.conditional_calculation_value}"></TextBox>
+                            <TextBlock Margin="0,-10,0,0" Text="рублей за" HorizontalAlignment="Center"></TextBlock>
+                            <ComboBox 
+                                Margin="5,5,5,5" 
+                                ItemsSource="{Binding calculation_types}" 
+                                SelectedValue="{Binding Cur_Tariff.conditional_calculation_type}">
+                            </ComboBox>
+                        </TextBlock>
+                        
+                        <TextBlock Text="{Binding FinalisedCustomer.tariff, StringFormat=Тариф : {0}}"></TextBlock>
+                    </StackPanel>
+                </Grid>
+                <!-- Tariff adding -->
+                <Grid Grid.Row="1">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Width="100" Margin="10" Content="{StaticResource Clear_Icon}" Command="{Binding Cancel_command}"></Button>
+                    </StackPanel>
+                </Grid>
+
             </Grid>
         </Grid>
     </Page.Content>

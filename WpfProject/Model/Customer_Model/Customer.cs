@@ -1,6 +1,7 @@
 ﻿using DevExpress.Mvvm;
 using System;
 using System.Threading.Tasks;
+using WpfProject.Model.Tariff_Model;
 using WpfProject.ViewModel.Pages;
 
 namespace Model.Customer_Model
@@ -36,8 +37,8 @@ namespace Model.Customer_Model
             set { _elapsed_time = value; RaisePropertyChanged(() => elapsed_time); }
         }
 
-        private string _tariff;
-        public string tariff
+        private Tariff _tariff;
+        public Tariff tariff
         {
             get { return _tariff; }
             set { _tariff = value; RaisePropertyChanged(() => tariff); }
@@ -53,7 +54,7 @@ namespace Model.Customer_Model
         {
             get { return new ConvertedCustomer(this); }
         } 
-        public Customer(string name, int id, DateTime start_time, string tariff)
+        public Customer(string name, int id, DateTime start_time, Tariff tariff)
         {
             this.name = name;
             this.id = id;
@@ -76,7 +77,6 @@ namespace Model.Customer_Model
             this.id = id;
             this.start_time = DateTime.Now;
             this.Active = true;
-            this.tariff = "Tarriff";
         }
     }
     [Serializable]
@@ -110,8 +110,8 @@ namespace Model.Customer_Model
             set { _elapsed_time = value; }
         }
 
-        private string _tariff;
-        public string tariff
+        private Tariff _tariff;
+        public Tariff tariff
         {
             get { return _tariff; }
             set { _tariff = value; }

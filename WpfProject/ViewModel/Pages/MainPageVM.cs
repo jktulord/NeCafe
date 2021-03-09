@@ -51,16 +51,32 @@ namespace WpfProject.ViewModel.Pages
             }
         }
 
-        private Customer _FinalisedCustomer;
-        public Customer FinalisedCustomer
+        private Customer _EditCustomer;
+        public Customer EditCustomer
         {
-            get { return _FinalisedCustomer; }
+            get { return _EditCustomer; }
             set
             {
-                _FinalisedCustomer = value;
-                RaisePropertyChanged(() => FinalisedCustomer);
+                _EditCustomer = value;
+                RaisePropertyChanged(() => EditCustomer);
             }
         }
+
+        public String EditCustomerStartTimeString 
+        {
+            get 
+            { 
+                return EditCustomer.start_time.ToShortTimeString(); 
+            }
+        }
+        public String EditCustomerElapsedTimeDouble
+        {
+            get
+            {
+                return Convert.ToString(Math.Round(EditCustomer.elapsed_time.TotalMinutes, 2))+" мин.";
+            }
+        }
+
 
 
         private int _UpdateTime;
@@ -185,13 +201,13 @@ namespace WpfProject.ViewModel.Pages
                 return new DelegateCommand((obj) => { SelectedCustomer.Active = SelectedCustomer.Active ? false : true; });
             }
         }
-        public ICommand ClickFinalise
+        public ICommand ClickEdit
         {
             get
             {
                 return new DelegateCommand((obj) => {
                     SwitchToFinalise();
-                    FinalisedCustomer = SelectedCustomer;
+                    EditCustomer = SelectedCustomer;
                 });
             }
         }
@@ -206,7 +222,7 @@ namespace WpfProject.ViewModel.Pages
         {
             get
             {
-                return new DelegateCommand((obj) => { CustomerList = CustomerMethods.Load(CustomerList, SaveText); });
+                return new DelegateCommand((obj) => { CustomerList = CustomerMethods.Load(CustomerList); });
             }
         }
         // Команды в подокне добавления
@@ -220,13 +236,20 @@ namespace WpfProject.ViewModel.Pages
                 });
             }
         }
-        public ICommand ClickAddingBack
+        public ICommand ClickBack
         {
             get
             {
                 return new DelegateCommand((obj) => {
                     SwitchToListBox();
                 });
+            }
+        }
+        public ICommand ClickEditStop
+        {
+            get
+            {
+                return new DelegateCommand((obj) => { EditCustomer.Active = EditCustomer.Active ? false : true; });
             }
         }
         // Переключение подокон
@@ -244,7 +267,7 @@ namespace WpfProject.ViewModel.Pages
         }
         public void SwitchToFinalise()
         {
-            ListBoxVisibility = ConstLib.Visible;
+            ListBoxVisibility = ConstLib.Hidden;
             FinaliseMenuVisibility = ConstLib.Visible;
             AddMenuVisibility = ConstLib.Hidden;
         }
@@ -252,14 +275,12 @@ namespace WpfProject.ViewModel.Pages
         public MainPageVM()
         {
             SaveText = new TextLine();
-            ListBoxVisibility = ConstLib.Visible;
-            FinaliseMenuVisibility = ConstLib.Hidden;
-            AddMenuVisibility = ConstLib.Hidden;
-            //ListBoxVisibility = "Hidden";
-            //FinaliseMenuVisibility = "Visible";
+            SwitchToAddMenu();
             UpdateTime = 10;
             CustomerList = CustomerMethods.Init_Customer();
-            //CustomerList = CustomerMethods.Load(CustomerList, SaveText);
+            CustomerList = CustomerMethods.Load(CustomerList);
+            EditCustomer = new Customer("Иван", 0, DateTime.Now, ConstLib.Calculation_Minute);
+
 
             Task.Factory.StartNew(() =>
             {
@@ -267,6 +288,8 @@ namespace WpfProject.ViewModel.Pages
                 {
                     Task.Delay(UpdateTime).Wait();
                     CustomerMethods.Update(CustomerList);
+                    RaisePropertyChanged(() => EditCustomerElapsedTimeDouble);
+                    RaisePropertyChanged(() => EditCustomerStartTimeString);
                 }
             });
         }

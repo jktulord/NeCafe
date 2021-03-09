@@ -33,7 +33,7 @@ namespace WpfProject.Model
         public static ObservableCollection<Customer> Add_Customer(ObservableCollection<Customer> customers)
         {
             Random rnd = new Random();
-            customers.Add(new Customer("Иван"+Convert.ToString(rnd.Next(1, 99)), 1+customers.Count, DateTime.Now, ConstLib.Tariff_Minute));
+            customers.Add(new Customer("Иван"+Convert.ToString(rnd.Next(1, 99)), 1+customers.Count, DateTime.Now, ConstLib.Calculation_Minute));
             return customers;
         }
         public static ObservableCollection<Customer> Add_Custom_Customer(ObservableCollection<Customer> customers, Customer customer, bool MinuteTariff, bool HourTarriff)
@@ -42,11 +42,11 @@ namespace WpfProject.Model
             string tariff;
             if (MinuteTariff)
             {
-                tariff = ConstLib.Tariff_Minute;
+                tariff = ConstLib.Calculation_Minute;
             }
             else
             {
-                tariff = ConstLib.Tariff_Hour;
+                tariff = ConstLib.Calculation_Hour;
             }
             customers.Add(new Customer(customer.name, 1 + customers.Count, DateTime.Now, tariff));
             return customers;
@@ -68,19 +68,16 @@ namespace WpfProject.Model
             {
                 converted_customers.Add(cur.convertedCustomer);
             }
-            BinarySerialization.WriteToBinaryFile<ObservableCollection<ConvertedCustomer>>("C:/Users/user/source/repos/WpfProject/WpfProject/Model/Data.bin", converted_customers);
+            BinarySerialization.WriteToBinaryFile<ObservableCollection<ConvertedCustomer>>("C:/Users/user/source/repos/WpfProject/WpfProject/Savefiles/CustomerData.bin", converted_customers);
             SaveText.Value = "Saved";
         }
-        public static ObservableCollection<Customer> Load(ObservableCollection<Customer> customers, TextLine SaveText)
+        public static ObservableCollection<Customer> Load(ObservableCollection<Customer> customers)
         {
             customers = Init_Customer();
-            ObservableCollection<ConvertedCustomer> converted_customers = BinarySerialization.ReadFromBinaryFile<ObservableCollection<ConvertedCustomer>>("C:/Users/user/source/repos/WpfProject/WpfProject/Model/Data.bin");
-            SaveText.Value = "0";
+            ObservableCollection<ConvertedCustomer> converted_customers = BinarySerialization.ReadFromBinaryFile<ObservableCollection<ConvertedCustomer>>("C:/Users/user/source/repos/WpfProject/WpfProject/Savefiles/CustomerData.bin");
             int i = 0;
             foreach (ConvertedCustomer cur in converted_customers)
             {
-                i++;
-                SaveText.Value = i+" Loaded";
                 customers.Add(new Customer(cur));
             }
             Console.WriteLine("Loaded");

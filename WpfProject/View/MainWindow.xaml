@@ -38,15 +38,29 @@
                 <RowDefinition Height="45"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0"></Grid>
-            <StackPanel Grid.Row="0">
-                <TextBlock Grid.Row="0"
+            <Grid Grid.Row="0">
+                <Line   
+                        HorizontalAlignment="Right"
+                        X1="0" Y1="0"
+                        X2="0" Y2="45"
+                        Stroke="#A60400"
+                        StrokeThickness="4"/>
+                <StackPanel>
+                    <TextBlock
                     FontSize="10"
                     Text="Кассир: Иванов И. И." />
-            </StackPanel>
-            <Button Margin="5"  BorderThickness="0" Height="20" Width="70" VerticalAlignment="Bottom">Профили</Button>
+                </StackPanel>
+                <Button Margin="5"  BorderThickness="0" Height="20" Width="70" VerticalAlignment="Bottom">Профили</Button>
+            </Grid>
+            
             <Grid Grid.Row="1">
-                <StackPanel>
+                <Line   
+                        HorizontalAlignment="Right"
+                        X1="0" Y1="0"
+                        X2="0" Y2="1000"
+                        Stroke="#A60400"
+                        StrokeThickness="4"/>
+                <StackPanel Width="92">
                     <Button BorderThickness="0" Command="{Binding ClickMainPage}">Главная</Button>
                     <Button BorderThickness="0" Height="20" VerticalAlignment="Top">История</Button>
                     <Button BorderThickness="0" Height="20" VerticalAlignment="Top">Справка</Button>
@@ -55,6 +69,7 @@
                     <Button BorderThickness="0" Height="20" VerticalAlignment="Top">Выход</Button>
                 </StackPanel>
             </Grid>
+            
             
         </Grid>
         <!-- Right Frame -->

@@ -1,34 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace WpfProject.Model
 {
     public static class ConstLib
     {
-        // Visibility
+        // Visibility 
         public const string Visible = "Visible";
         public const string Hidden = "Hidden";
 
-        // Tariff Type
-        enum Tariff_Type
-        {
-            Minute,
-            Hour,
-            Stop_Check
-        }
+        // Tariff States
+        
 
-        public const string Tariff_Minute = "Минуту";
-        public const string Tariff_Hour = "Час";
-        public const string Tariff_Stop_Check = "Стоп-Чек";
+        // Tariff Type
+        public const string Calculation_Minute = "Минуту";
+        public const string Calculation_Hour = "Час";
+        public const string Calculation_Stop_Check = "Стоп-Чек";
 
         // Tariff Condition 
-        public enum Tariff_Condition
-        {
-            Minute,
-            Hour
-        }
-
         public const string Condition_Minute = "Минут";
         public const string Condition_Hour = "Часов";
 
@@ -40,6 +31,43 @@ namespace WpfProject.Model
         }
         public const string Condition_Result_Overall = "Общее время вычисляется по";
         public const string Condition_Result_Separate = "Следующее время считается по";
+
+        public const string Show_Type_Simple = "Упрощенный";
+        public const string Show_Type_Full = "Полный";
+
+        public class CalculationTypes : ObservableCollection<string>
+        {
+            public CalculationTypes()
+            {
+                Add(Calculation_Minute);
+                Add(Calculation_Hour);
+                Add(Calculation_Stop_Check);
+            }
+        }
+        public class ConditionTypes : ObservableCollection<string>
+        {
+            public ConditionTypes()
+            {
+                Add(Condition_Minute);
+                Add(Condition_Hour);
+            }
+        }
+        public class ConditionResultTypes : ObservableCollection<string>
+        {
+            public ConditionResultTypes()
+            {
+                Add(Condition_Result_Overall);
+                Add(Condition_Result_Separate);
+            }
+        }
+        public class ShowTypes : ObservableCollection<string>
+        {
+            public ShowTypes()  
+            {
+                Add(Show_Type_Simple);
+                Add(Show_Type_Full);
+            }
+        }
 
     }
 }
