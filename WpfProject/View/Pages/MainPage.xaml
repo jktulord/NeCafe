@@ -263,11 +263,66 @@
             
             <!-- AddMenu -->
             <Grid Grid.Row="0" Visibility="{Binding AddMenuVisibility}" Background="White">
+
+                <Grid Grid.Row="0" Background="#C0C0C0" Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <!--<Border Grid.Column="0" Background="#FF7673" CornerRadius="0,0,10,10"/> -->
+                    <Line   
+                        Grid.Column="0"
+                        VerticalAlignment="Top"
+                        X1="0" Y1="0"
+                        X2="300" Y2="0"
+                        Stroke="#A60400"
+                        StrokeThickness="4"/>
+                    <Line   
+                        Grid.Column="0"
+                        VerticalAlignment="Bottom"
+                        X1="0" Y1="0"
+                        X2="300" Y2="0"
+                        Stroke="#A60400"
+                        StrokeThickness="4"/>
+                    <!--<Border Grid.Column="1" Background="#FF7673" CornerRadius="0,0,10,10"/>-->
+                    <Line   
+                        Grid.Column="1"
+                        VerticalAlignment="Top"
+                        X1="0" Y1="0"
+                        X2="300" Y2="0"
+                        Stroke="#A60400"
+                        StrokeThickness="4"/>
+                    <Line   
+                        Grid.Column="1"
+                        VerticalAlignment="Bottom"
+                        X1="0" Y1="0"
+                        X2="300" Y2="0"
+                        Stroke="#A60400"
+                        StrokeThickness="4"/>
+                    <Canvas Grid.Column="0" Width="100" Height="100" VerticalAlignment="Top">
+                        <Canvas dat:Canvas.Left="10">
+                            <TextBlock Text="Имя" dat:Canvas.Top="4"/>
+                            <TextBox dat:Canvas.Top="20" Text="{Binding NewCustomer.name}" Width="70"/>
+                        </Canvas>
+                        
+                    </Canvas>
+                    <Canvas Grid.Column="1" Width="100" Height="100" VerticalAlignment="Top">
+                        <Canvas dat:Canvas.Left="10">
+                            <TextBlock Text="Тариф" dat:Canvas.Top="4"/>
+                            <TextBlock Text="{Binding EditCustomer.tariff}" FontSize="16" dat:Canvas.Top="16"/>
+                        </Canvas>
+                        <Canvas dat:Canvas.Left="10" dat:Canvas.Top="40">
+                            <TextBlock Text="Отсчет от" dat:Canvas.Top="4"/>
+                            <TextBlock Text="{Binding NewCustomer.start_time}" FontSize="16" dat:Canvas.Top="16"/>
+                        </Canvas>
+                    </Canvas>
+                </Grid>
+                <!--
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="21*"/>
                     <ColumnDefinition Width="97*"/>
                 </Grid.ColumnDefinitions>
-
+                
                 <StackPanel Grid.Column="0">
                     <TextBlock Style="{StaticResource Grey}">Имя:</TextBlock>
                     <TextBlock Style="{StaticResource Grey}" Text="Тариф:"></TextBlock>
@@ -282,6 +337,7 @@
                         <RadioButton Style="{StaticResource GreyBox}" GroupName="Tariff" Content="Поминутный" IsChecked="{Binding MinuteTariffIsChecked}"/>
                     </TextBlock>
                 </StackPanel>
+                -->
             </Grid>
             
             <Grid Grid.Row="1" Visibility="{Binding AddMenuVisibility}">

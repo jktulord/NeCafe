@@ -173,10 +173,8 @@ namespace WpfProject.ViewModel.Pages
         {
             get
             {
-                return new DelegateCommand((obj) => { 
-                    ListBoxVisibility = ConstLib.Hidden;
-                    FinaliseMenuVisibility = ConstLib.Hidden;
-                    AddMenuVisibility = ConstLib.Visible;
+                return new DelegateCommand((obj) => {
+                    SwitchToAddMenu();
                     NewCustomer = new Customer();
                 });
             }
@@ -289,13 +287,14 @@ namespace WpfProject.ViewModel.Pages
         public MainPageVM()
         {
             SaveText = new TextLine();
-            SwitchToAddMenu();
+            SwitchToListBox();
             UpdateTime = 10;
             CustomerList = CustomerMethods.Init_Customer();
             Autoload();
             EditCustomer = new Customer("Иван", 0, DateTime.Now, new Model.Tariff_Model.Tariff());
 
 
+            
             Task.Factory.StartNew(() =>
             {
                 while (true)
