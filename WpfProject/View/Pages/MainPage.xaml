@@ -150,7 +150,7 @@
                     <Canvas Grid.Column="1" Width="100" Height="100" VerticalAlignment="Top">
                         <Canvas dat:Canvas.Left="10">
                             <TextBlock Text="Тариф" dat:Canvas.Top="4"/>
-                            <TextBlock Text="{Binding EditCustomer.tariff}" FontSize="16" dat:Canvas.Top="16"/>
+                            <TextBlock Text="{Binding EditCustomer.tariff.name}" FontSize="16" dat:Canvas.Top="16"/>
                         </Canvas>
                         <Canvas dat:Canvas.Left="10" dat:Canvas.Top="40">
                             <TextBlock Text="Отсчет от" dat:Canvas.Top="4"/>
@@ -255,8 +255,7 @@
             </Grid>
             <Grid Grid.Row="1" Visibility="{Binding FinaliseMenuVisibility}" Background="#C0C0C0" Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <Button Width="100" Margin="10" Content="Exit" Command="{Binding ClickBack}"></Button>
-                    <Button Width="100" Margin="10" Content="Finalise"></Button>
+                    <Button Width="50" Margin="10" Content="{StaticResource Clear_Icon1}" Command="{Binding ClickBack}"/>
                 </StackPanel>
             </Grid>
             <!-- Edit End -->
@@ -265,10 +264,7 @@
             <Grid Grid.Row="0" Visibility="{Binding AddMenuVisibility}" Background="White">
 
                 <Grid Grid.Row="0" Background="#C0C0C0" Margin="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+                    
                     <!--<Border Grid.Column="0" Background="#FF7673" CornerRadius="0,0,10,10"/> -->
                     <Line   
                         Grid.Column="0"
@@ -299,23 +295,37 @@
                         X2="300" Y2="0"
                         Stroke="#A60400"
                         StrokeThickness="4"/>
-                    <Canvas Grid.Column="0" Width="100" Height="100" VerticalAlignment="Top">
-                        <Canvas dat:Canvas.Left="10">
-                            <TextBlock Text="Имя" dat:Canvas.Top="4"/>
-                            <TextBox dat:Canvas.Top="20" Text="{Binding NewCustomer.name}" Width="70"/>
+                    <Canvas Grid.Column="0" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Canvas dat:Canvas.Left="10" dat:Canvas.Top="10">
+                            <TextBlock Text="Имя"/>
+                            <TextBox dat:Canvas.Top="16" Text="{Binding NewCustomer.name}" Width="70"/>
                         </Canvas>
-                        
+                        <Canvas dat:Canvas.Left="10" dat:Canvas.Top="50" >
+                            <TextBlock Text="Тариф"/>
+                            <ListBox dat:Canvas.Top="16" ItemsSource="{Binding AvailableTariffs}" SelectedItem="{Binding NewCustomer.tariff}" Width="125">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <UniformGrid Columns="4">
+                                            <UniformGrid.Resources>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Margin" Value="5"/>
+                                                    <Setter Property="TextAlignment" Value="Left"/>
+                                                </Style>
+                                            </UniformGrid.Resources>
+                                            <TextBlock Text="{Binding name}"/>
+                                        </UniformGrid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Canvas>
                     </Canvas>
-                    <Canvas Grid.Column="1" Width="100" Height="100" VerticalAlignment="Top">
-                        <Canvas dat:Canvas.Left="10">
-                            <TextBlock Text="Тариф" dat:Canvas.Top="4"/>
-                            <TextBlock Text="{Binding EditCustomer.tariff}" FontSize="16" dat:Canvas.Top="16"/>
-                        </Canvas>
-                        <Canvas dat:Canvas.Left="10" dat:Canvas.Top="40">
+                    <Canvas Grid.Column="1" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Canvas dat:Canvas.Left="100" >
                             <TextBlock Text="Отсчет от" dat:Canvas.Top="4"/>
                             <TextBlock Text="{Binding NewCustomer.start_time}" FontSize="16" dat:Canvas.Top="16"/>
                         </Canvas>
                     </Canvas>
+                    
                 </Grid>
                 <!--
                 <Grid.ColumnDefinitions>
@@ -342,8 +352,8 @@
             
             <Grid Grid.Row="1" Visibility="{Binding AddMenuVisibility}">
                 <StackPanel Orientation="Horizontal">
-                    <Button Width="100" Margin="10" Content="Завершить" Command="{Binding ClickAddingFinish}"></Button>
-                    <Button Width="100" Margin="10" Content="Назад" Command="{Binding ClickBack}"></Button>
+                    <Button Width="50" Margin="10" Content="{StaticResource Check_Icon}" Command="{Binding ClickAddingFinish}"/>
+                    <Button Width="50" Margin="10" Content="{StaticResource Clear_Icon}" Command="{Binding ClickBack}"/>
                 </StackPanel>    
             </Grid>
             <!-- AddMenu End -->

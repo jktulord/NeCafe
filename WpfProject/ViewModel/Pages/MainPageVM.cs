@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WpfProject.Model;
+using WpfProject.Model.Tariff_Model;
 using WpfProject.ViewModel;
 
 namespace WpfProject.ViewModel.Pages
@@ -77,6 +78,16 @@ namespace WpfProject.ViewModel.Pages
             }
         }
 
+        private ObservableCollection<Tariff> _AvailableTariffs;
+        public ObservableCollection<Tariff> AvailableTariffs
+        {
+            get { return _AvailableTariffs; }
+            set
+            {
+                _AvailableTariffs = value;
+                RaisePropertyChanged(() => AvailableTariffs);
+            }
+        }
 
 
         private int _UpdateTime;
@@ -287,12 +298,12 @@ namespace WpfProject.ViewModel.Pages
         public MainPageVM()
         {
             SaveText = new TextLine();
-            SwitchToListBox();
+            SwitchToAddMenu();
             UpdateTime = 10;
             CustomerList = CustomerMethods.Init_Customer();
             Autoload();
             EditCustomer = new Customer("Иван", 0, DateTime.Now, new Model.Tariff_Model.Tariff());
-
+            AvailableTariffs = TariffMethods.LoadAvailable();
 
             
             Task.Factory.StartNew(() =>

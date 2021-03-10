@@ -69,7 +69,7 @@ namespace Model.Customer_Model
             this.start_time = customer.start_time;
             this.elapsed_time = customer.elapsed_time;
             this.Active = customer.Active;
-            this.tariff = customer.tariff;
+            this.tariff = new Tariff(customer.tariff);
         }
         public Customer()
         {
@@ -110,8 +110,8 @@ namespace Model.Customer_Model
             set { _elapsed_time = value; }
         }
 
-        private Tariff _tariff;
-        public Tariff tariff
+        private ConvertedTariff _tariff;
+        public ConvertedTariff tariff
         {
             get { return _tariff; }
             set { _tariff = value; }
@@ -131,7 +131,7 @@ namespace Model.Customer_Model
             this.start_time = customer.start_time;
             this.elapsed_time = customer.elapsed_time;
             this.Active = customer.Active;
-            this.tariff = customer.tariff;
+            this.tariff = customer.tariff.Converted;
         }
     }
 
