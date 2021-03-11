@@ -3,6 +3,7 @@ using Console_prototype.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Text;
 using System.Windows.Media.TextFormatting;
 
@@ -42,13 +43,17 @@ namespace WpfProject.Model.Tariff_Model
             {
                 converted_list.Add(cur.Converted);
             }
-            BinarySerialization.WriteToBinaryFile<ObservableCollection<ConvertedTariff>>("C:/Users/user/source/repos/WpfProject/WpfProject/Savefiles/TariffData.bin", converted_list);
+            String path = Directory.GetCurrentDirectory();
+            path = path.Substring(0, path.IndexOf("bin\\Debug")) + "/Savefiles/TariffData.bin";
+            BinarySerialization.WriteToBinaryFile<ObservableCollection<ConvertedTariff>>(path, converted_list);
             
         }
         public static ObservableCollection<Tariff> Load()
         {
             ObservableCollection<Tariff> list = new ObservableCollection<Tariff>();
-            ObservableCollection<ConvertedTariff> converted_list = BinarySerialization.ReadFromBinaryFile<ObservableCollection<ConvertedTariff>>("C:/Users/user/source/repos/WpfProject/WpfProject/Savefiles/TariffData.bin");
+            String path = Directory.GetCurrentDirectory();
+            path = path.Substring(0, path.IndexOf("bin\\Debug")) + "/Savefiles/TariffData.bin";
+            ObservableCollection<ConvertedTariff> converted_list = BinarySerialization.ReadFromBinaryFile<ObservableCollection<ConvertedTariff>>(path);
             
             int i = 0;
             foreach (ConvertedTariff cur in converted_list)
