@@ -59,7 +59,7 @@ namespace Model.Customer_Model
             this.name = name;
             this.id = id;
             this.start_time = start_time;
-            this.Active = true;
+            this.Active = false;
             this.tariff = tariff;
         }
         public Customer(ConvertedCustomer customer)

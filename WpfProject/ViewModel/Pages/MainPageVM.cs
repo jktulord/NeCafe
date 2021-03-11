@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WpfProject.Model;
+using WpfProject.Model.Customer_Model;
 using WpfProject.Model.Tariff_Model;
 using WpfProject.ViewModel;
 
@@ -68,6 +69,13 @@ namespace WpfProject.ViewModel.Pages
             get 
             { 
                 return EditCustomer.start_time.ToShortTimeString(); 
+            }
+        }
+        public String NewCustomerStartTimeString
+        {
+            get
+            {
+                return NewCustomer.start_time.ToShortTimeString();
             }
         }
         public String EditCustomerElapsedTimeDouble
@@ -167,6 +175,17 @@ namespace WpfProject.ViewModel.Pages
             }
         }
 
+        private CustomerFinaliserManager _CustomerFinaliser;
+
+        public CustomerFinaliserManager CustomerFinaliser
+        {
+            get { return _CustomerFinaliser; }
+            set
+            {
+                _CustomerFinaliser = value;
+                RaisePropertyChanged(() => CustomerFinaliser);
+            }
+        }
 
         private TextLine _SaveText;
         public TextLine SaveText
@@ -228,6 +247,7 @@ namespace WpfProject.ViewModel.Pages
                 return new DelegateCommand((obj) => {
                     SwitchToFinalise();
                     EditCustomer = SelectedCustomer;
+                    CustomerFinaliser = new CustomerFinaliserManager(EditCustomer); 
                 });
             }
         }
@@ -252,6 +272,7 @@ namespace WpfProject.ViewModel.Pages
             {
                 return new DelegateCommand((obj) => {
                     NewCustomer.tariff = SelectedTariff;
+                    NewCustomer.Active = true;
                     CustomerMethods.Add_Custom_Customer(CustomerList, NewCustomer);
                     SwitchToListBox(); 
                 });
@@ -310,11 +331,13 @@ namespace WpfProject.ViewModel.Pages
         public MainPageVM()
         {
             SaveText = new TextLine();
-            SwitchToAddMenu();
+            SwitchToListBox();
             UpdateTime = 10;
             CustomerList = CustomerMethods.Init_Customer();
             Autoload();
-            EditCustomer = new Customer("Иван", 0, DateTime.Now, new Model.Tariff_Model.Tariff());
+            Customer MockCustomer = new Customer("Иван", 0, DateTime.Now, new Model.Tariff_Model.Tariff());
+            EditCustomer = MockCustomer;
+            NewCustomer = MockCustomer;
             AvailableTariffs = TariffMethods.LoadAvailable();
 
             
@@ -326,6 +349,7 @@ namespace WpfProject.ViewModel.Pages
                     CustomerMethods.Update(CustomerList);
                     RaisePropertyChanged(() => EditCustomerElapsedTimeDouble);
                     RaisePropertyChanged(() => EditCustomerStartTimeString);
+                    RaisePropertyChanged(() => NewCustomerStartTimeString);
                 }
             });
         }
