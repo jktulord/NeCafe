@@ -247,7 +247,9 @@ namespace WpfProject.ViewModel.Pages
                 return new DelegateCommand((obj) => {
                     SwitchToFinalise();
                     EditCustomer = SelectedCustomer;
-                    CustomerFinaliser = new CustomerFinaliserManager(EditCustomer); 
+                    CustomerFinaliser = new CustomerFinaliserManager(EditCustomer);
+                    CustomerFinaliser.Calculate();
+                    RaisePropertyChanged(() => CustomerFinaliser);
                 });
             }
         }
