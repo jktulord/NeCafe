@@ -31,19 +31,11 @@ namespace WpfProject.Model
             customers.Add(new Customer("Иван"+Convert.ToString(rnd.Next(1, 99)), 1+customers.Count, DateTime.Now, new Tariff_Model.Tariff()));
             return customers;
         }
-        public static ObservableCollection<Customer> Add_Custom_Customer(ObservableCollection<Customer> customers, Customer customer, bool MinuteTariff, bool HourTarriff)
+        public static ObservableCollection<Customer> Add_Custom_Customer(ObservableCollection<Customer> customers, Customer customer)
         {
             Random rnd = new Random();
-            string tariff;
-            if (MinuteTariff)
-            {
-                tariff = ConstLib.Calculation_Minute;
-            }
-            else
-            {
-                tariff = ConstLib.Calculation_Hour;
-            }
-            customers.Add(new Customer(customer.name, 1 + customers.Count, DateTime.Now, new Tariff_Model.Tariff()));
+            customer.id = rnd.Next(1, 1000);
+            customers.Add(customer);
             return customers;
         }
         public static void Update(ObservableCollection<Customer> customers)

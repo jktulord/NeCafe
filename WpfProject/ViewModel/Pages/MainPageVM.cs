@@ -89,6 +89,17 @@ namespace WpfProject.ViewModel.Pages
             }
         }
 
+        private Tariff _SelectedTariff;
+        public Tariff SelectedTariff
+        {
+            get { return _SelectedTariff; }
+            set
+            {
+                _SelectedTariff = value;
+                RaisePropertyChanged(() => SelectedTariff);
+            }
+        }
+
 
         private int _UpdateTime;
         public int UpdateTime
@@ -240,7 +251,8 @@ namespace WpfProject.ViewModel.Pages
             get
             {
                 return new DelegateCommand((obj) => {
-                    CustomerMethods.Add_Custom_Customer(CustomerList, NewCustomer, MinuteTariffIsChecked, HourTariffIsChecked);
+                    NewCustomer.tariff = SelectedTariff;
+                    CustomerMethods.Add_Custom_Customer(CustomerList, NewCustomer);
                     SwitchToListBox(); 
                 });
             }

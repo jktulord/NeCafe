@@ -302,12 +302,13 @@
                         </Canvas>
                         <Canvas dat:Canvas.Left="10" dat:Canvas.Top="50" >
                             <TextBlock Text="Тариф"/>
-                            <ListBox dat:Canvas.Top="16" ItemsSource="{Binding AvailableTariffs}" SelectedItem="{Binding NewCustomer.tariff}" Width="125">
+                            <ListBox dat:Canvas.Top="16" ItemsSource="{Binding AvailableTariffs}" SelectedItem="{Binding SelectedTariff}" Width="125">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <UniformGrid Columns="4">
                                             <UniformGrid.Resources>
                                                 <Style TargetType="TextBlock">
+                                                    <Setter Property="Width" Value="100"/>
                                                     <Setter Property="Margin" Value="5"/>
                                                     <Setter Property="TextAlignment" Value="Left"/>
                                                 </Style>
