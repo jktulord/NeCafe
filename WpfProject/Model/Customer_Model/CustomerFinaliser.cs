@@ -16,28 +16,20 @@ namespace WpfProject.Model.Customer_Model
             set { _customer = value; RaisePropertyChanged(() => customer); }
         }
 
+        private double _first_time_value;
         public double first_time_value
         {
-            get {
-                double totalMinutes = Math.Round(customer.elapsed_time.TotalMinutes, 2);
-                double return_value = totalMinutes;
-
-                if (customer.tariff.condition_type == ConstLib.Condition_Minute)
-                {
-                    if (totalMinutes <= customer.tariff.condition_value)
-                    {
-                        return_value = totalMinutes;
-                    }
-                    else
-                    {
-                        return_value = customer.tariff.condition_value;
-                    }
-                    
-                }
-                return return_value;
-            }
+            get { return _first_time_value; }
+            set { _first_time_value = value; RaisePropertyChanged(() => first_time_value); }
         }
-    
+
+        private double _first_cost_value;
+        public double first_cost_value
+        {
+            get { return _first_cost_value; }
+            set { _first_cost_value = value; RaisePropertyChanged(() => first_cost_value); }
+        }
+
         public double second_time_value
         {
             get
@@ -53,7 +45,7 @@ namespace WpfProject.Model.Customer_Model
                     }
                     else
                     {
-                        return_value = totalMinutes - customer.tariff.condition_value; 
+                        return_value = totalMinutes - customer.tariff.condition_value;
                     }
 
                 }
@@ -64,9 +56,8 @@ namespace WpfProject.Model.Customer_Model
                 return return_value;
             }
         }
-
-       
-        public double first_cost_value
+        
+        public double second_cost_value
         {
             get
             {
@@ -77,66 +68,233 @@ namespace WpfProject.Model.Customer_Model
                 {
                     if (totalMinutes <= customer.tariff.condition_value)
                     {
-                        return_value = Math.Round(totalMinutes * customer.tariff.default_calculation_value, 2);
+                        return_value = 0;
                     }
                     else
                     {
-                        return_value = Math.Round(customer.tariff.condition_value * customer.tariff.default_calculation_value, 2); 
+                        return_value = Math.Round((totalMinutes - customer.tariff.condition_value) * customer.tariff.default_calculation_value, 2);
                     }
 
                 }
                 else
                 {
-                    return_value = Math.Round(totalMinutes * customer.tariff.default_calculation_value, 2);
+                    return_value = 0;
                 }
                 return return_value;
             }
         }
-        private double _second_cost_value;
-        public double second_cost_value
-        {
-            get { return _second_cost_value; }
-            set { _second_cost_value = value; RaisePropertyChanged(() => second_cost_value); }
-        }
-
-        private double _sum_value;
         public double sum_value
         {
-            get { return _sum_value; }
-            set { _sum_value = value; RaisePropertyChanged(() => sum_value); }
+            get { return first_cost_value + second_cost_value; }
+        }
+
+        public string first_type_string
+        {
+            get
+            {
+                string return_value = "";
+                if (customer.tariff.condition_type == ConstLib.Calculation_Minute)
+                {
+                    return_value = "руб/мин";
+                }
+                else if (customer.tariff.condition_type == ConstLib.Calculation_Hour)
+                {
+                    return_value = "руб/час";
+                }
+                else
+                {
+                    return_value = "руб/стоп-чек";
+                }
+
+                return return_value;
+            }
+        }
+        public string second_type_string
+        {
+            get
+            {
+                string return_value = "";
+                if (customer.tariff.conditional_calculation_type == ConstLib.Calculation_Minute)
+                {
+                    return_value = "руб/мин";
+                }
+                else if (customer.tariff.conditional_calculation_type == ConstLib.Calculation_Hour)
+                {
+                    return_value = "руб/час";
+                }
+                else
+                {
+                    return_value = "руб/стоп-чек";
+                }
+
+                return return_value;
+            }
         }
         public CustomerFinaliserManager(Customer customer)
         {
             this.customer = customer;
-            Calculate();
+            execute();
         }
 
-        public void Calculate()
+        public void first_value_calculation_separate(double totalMinutes)
         {
-            double totalMinutes = Math.Round(customer.elapsed_time.TotalMinutes);
-            Tariff_Model.Tariff tariff = customer.tariff;
-            
-            second_cost_value = 0;
-            if (tariff.is_there_condition)
+            double return_time_value;
+            double return_cost_value;
+            double condition_value;
+            if (customer.tariff.condition_type == ConstLib.Condition_Minute) // условие минутное
             {
-                if (tariff.condition_type == ConstLib.Condition_Minute)
+                condition_value = customer.tariff.condition_value;
+            }
+            else
+            {
+                condition_value = customer.tariff.condition_value * 60;
+            }
+            if (totalMinutes <= condition_value) // Если время больше чем по условию
+            {
+                if (customer.tariff.default_calculation_type == ConstLib.Calculation_Minute) // минутное вычисление
                 {
-                    if (totalMinutes <= tariff.condition_value)
-                    {
-                       
-                    }
-                    else
-                    {
-                        
-                        second_cost_value = Math.Round((totalMinutes - tariff.condition_value) * tariff.default_calculation_value, 2);
-                    }
+                    return_time_value = totalMinutes;
+                    return_cost_value = Math.Round(return_time_value * customer.tariff.default_calculation_value, 2);
+                }
+                else if (customer.tariff.default_calculation_type == ConstLib.Calculation_Hour) // часовое
+                {
+                    return_time_value = totalMinutes / 60;
+                    return_cost_value = Math.Round(Math.Ceiling(return_time_value) * customer.tariff.default_calculation_value, 2);
+                }
+                else // стоп-чек
+                {
+                    return_time_value = totalMinutes;
+                    return_cost_value = customer.tariff.default_calculation_value;
+                }
+
+            }
+            else // време выходит за рамки стандартного
+            {
+                if (customer.tariff.default_calculation_type == ConstLib.Calculation_Minute) // минутное вычисление
+                {
+                    return_time_value = customer.tariff.condition_value;
+                    return_cost_value = Math.Round(return_time_value * customer.tariff.default_calculation_value, 2);
+
+                }
+                else if (customer.tariff.default_calculation_type == ConstLib.Calculation_Hour) // часовое
+                {
+                    return_time_value = customer.tariff.condition_value / 60;
+                    return_cost_value = Math.Round(Math.Ceiling(return_time_value) * customer.tariff.default_calculation_value, 2);
+                }
+                else // стоп-чек
+                {
+                    return_time_value = customer.tariff.condition_value;
+                    return_cost_value = customer.tariff.default_calculation_value;
+                }
+            }
+            first_time_value = return_time_value;
+            first_cost_value = return_cost_value;
+            RaisePropertyChanged(() => first_time_value);
+            RaisePropertyChanged(() => first_cost_value);
+        }   
+
+        public void execute()
+        {
+            double totalMinutes = Math.Round(customer.elapsed_time.TotalMinutes, 2);
+            double return_value = totalMinutes;
+
+            if (customer.tariff.is_there_condition) // если есть условие
+            {
+                if (customer.tariff.condition_result_type == ConstLib.Condition_Result_Separate) // если вычисление сепарирование
+                {
+                    first_value_calculation_separate(totalMinutes);
+                }
+                else
+                {
+
                 }
             }
             else
             {
-               
+                
+
             }
-            sum_value = first_cost_value + second_cost_value;
+
+            /*
+            if (customer.tariff.condition_type == ConstLib.Condition_Minute)
+            {
+                if ((totalMinutes <= customer.tariff.condition_value) || (customer.tariff.is_there_condition == false)) // Если время больше чем по условию
+                {
+                    if (customer.tariff.default_calculation_type == ConstLib.Calculation_Minute)
+                    {
+                        return_value = totalMinutes;
+                    }
+                    else if (customer.tariff.default_calculation_type == ConstLib.Calculation_Hour)
+                    {
+                        return_value = totalMinutes / 60;
+                    }
+                    else
+                    {
+                        return_value = totalMinutes;
+                    }
+
+                }
+                else
+                {
+                    if (customer.tariff.default_calculation_type == ConstLib.Calculation_Minute)
+                    {
+                        return_value = customer.tariff.default_calculation_value;
+                    }
+                    else if (customer.tariff.default_calculation_type == ConstLib.Calculation_Hour)
+                    {
+                        return_value = customer.tariff.default_calculation_value / 60;
+                    }
+                    else
+                    {
+                        return_value = customer.tariff.default_calculation_value;
+                    }
+                }
+
+            }
+            else // условие часовое
+            {
+                if (customer.tariff.condition_result_type == ConstLib.Condition_Result_Separate)
+                {
+
+                    if ((totalMinutes <= customer.tariff.condition_value) || (customer.tariff.is_there_condition == false)) // Если время больше чем по условию
+                    {
+                        if (customer.tariff.default_calculation_type == ConstLib.Calculation_Minute) // если тип вычисления минутный
+                        {
+                            return_value = totalMinutes;
+                        }
+                        else if (customer.tariff.default_calculation_type == ConstLib.Calculation_Hour) // если тип вычисления часовой
+                        {
+                            return_value = totalMinutes / 60;
+                        }
+                        else // стоп-чек
+                        {
+                            return_value = totalMinutes;
+                        }
+
+                    }
+                    else
+                    {
+                        if (customer.tariff.default_calculation_type == ConstLib.Calculation_Minute) // если тип вычисления минутный
+                        {
+                            return_value = customer.tariff.default_calculation_value;
+                        }
+                        else if (customer.tariff.default_calculation_type == ConstLib.Calculation_Hour) // если тип вычисления часовой
+                        {
+                            return_value = customer.tariff.default_calculation_value / 60;
+                        }
+                        else // стоп-чек
+                        {
+                            return_value = customer.tariff.default_calculation_value;
+                        }
+                    }
+                }
+
+            }
+            first_time_value = return_value;
+            RaisePropertyChanged(() => first_time_value);
+            */
         }
+
+
     }
 }

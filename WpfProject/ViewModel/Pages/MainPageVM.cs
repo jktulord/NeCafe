@@ -248,7 +248,6 @@ namespace WpfProject.ViewModel.Pages
                     SwitchToFinalise();
                     EditCustomer = SelectedCustomer;
                     CustomerFinaliser = new CustomerFinaliserManager(EditCustomer);
-                    CustomerFinaliser.Calculate();
                     RaisePropertyChanged(() => CustomerFinaliser);
                 });
             }

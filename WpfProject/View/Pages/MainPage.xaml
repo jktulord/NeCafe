@@ -179,8 +179,14 @@
                         <Canvas dat:Canvas.Top="2" dat:Canvas.Left="5">
                             <StackPanel>
                                 <TextBlock Text="Тип" dat:Canvas.Left="90"/>
-                                <TextBlock Text="{Binding EditCustomer.tariff.default_calculation_value, StringFormat={}{0}руб/мин }" dat:Canvas.Left="90" FontSize="14"/>
-                                <TextBlock Text="{Binding EditCustomer.tariff.conditional_calculation_value, StringFormat={}{0}руб/мин }" dat:Canvas.Left="90" FontSize="14"/>
+                                <TextBlock dat:Canvas.Left="90" FontSize="14"/>
+                                    <TextBlock Text="{Binding EditCustomer.tariff.default_calculation_value}"/>
+                                    <TextBlock Text="{Binding CustomerFinaliser.first_type_string}"/>
+                                <TextBlock/>
+                                <TextBlock dat:Canvas.Left="90" FontSize="14">
+                                    <TextBlock Text="{Binding EditCustomer.tariff.default_calculation_value}"/>
+                                    <TextBlock Text="{Binding CustomerFinaliser.second_type_string}"/>
+                                </TextBlock>
                             </StackPanel>
                         </Canvas>
                         <Canvas dat:Canvas.Left="120">
@@ -223,7 +229,7 @@
                         <Canvas Margin="0,20,0,0" Width="100" Height="60">
                             <TextBlock> 
                             <TextBlock> Итог без скидки:</TextBlock>
-                            <TextBlock Text="{Binding CustomerFinaliser.second_cost_value, StringFormat={}руб. }" FontSize="14"/>
+                            <TextBlock Text="{Binding CustomerFinaliser.sum_value, StringFormat={}{0}руб. }" FontSize="14"/>
                         </TextBlock>
                             <TextBlock dat:Canvas.Top="20" dat:Canvas.Left="50"> 
                             <TextBlock> Скидка:</TextBlock>
