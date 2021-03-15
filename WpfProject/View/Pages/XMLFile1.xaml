@@ -73,7 +73,7 @@
                     <Canvas Grid.Column="1" Width="100" Height="100" VerticalAlignment="Top">
                         <Canvas dat:Canvas.Left="10">
                             <TextBlock Text="Тариф" dat:Canvas.Top="4"/>
-                            <TextBlock Text="{Binding EditCustomer.tariff}" FontSize="16" dat:Canvas.Top="16"/>
+                            <TextBlock Text="{Binding EditCustomer.tariff.name}" FontSize="16" dat:Canvas.Top="16"/>
                         </Canvas>
                         <Canvas dat:Canvas.Left="10" dat:Canvas.Top="40">
                             <TextBlock Text="Отсчет от" dat:Canvas.Top="4"/>
@@ -98,29 +98,31 @@
                         X2="300" Y2="0"
                         Stroke="#A60400"
                         StrokeThickness="4"/>
-                    <Canvas Width="300" Height="100" HorizontalAlignment="Center">
-                        <Canvas dat:Canvas.Top="2" dat:Canvas.Left="5">
-                            <StackPanel>
-                                <TextBlock Text="Тип" dat:Canvas.Left="90"/>
-                                <TextBlock Text="5руб. в мин." dat:Canvas.Left="90" FontSize="14"/>
-                                <TextBlock Text="4руб. в мин." dat:Canvas.Left="90" FontSize="14"/>
-                            </StackPanel>
-                        </Canvas>
-                        <Canvas dat:Canvas.Left="120">
-                            <StackPanel>
-                                <TextBlock Text="Время" dat:Canvas.Left="0" />
-                                <TextBlock Text="100 мин." dat:Canvas.Left="0" FontSize="14"/>
-                                <TextBlock Text="20 мин." dat:Canvas.Left="0" FontSize="14"/>
-                            </StackPanel>
-                        </Canvas>
-                        <Canvas dat:Canvas.Left="240">
-                            <StackPanel>
-                                <TextBlock Text="Всего" dat:Canvas.Left="180"/>
-                                <TextBlock Text="500руб." dat:Canvas.Left="180" FontSize="14"/>
-                                <TextBlock Text="80руб." dat:Canvas.Left="180" FontSize="14"/>
-                            </StackPanel>
-                        </Canvas>
-                    </Canvas>
+                    <StackPanel Orientation="Horizontal" >
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Тип"/>
+                            <TextBlock FontSize="14">
+                                <TextBlock Text="{Binding EditCustomer.tariff.default_calculation_value}"/>
+                                <TextBlock Text="{Binding CustomerFinaliser.first_type_string}"/>
+                            </TextBlock>
+                            <TextBlock FontSize="14" >
+                                    <TextBlock Text="{Binding EditCustomer.tariff.default_calculation_value}"/>
+                                    <TextBlock Text="{Binding CustomerFinaliser.second_type_string}"/>
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Время" dat:Canvas.Left="0" />
+                            <TextBlock Text="{Binding CustomerFinaliser.first_time_value, StringFormat= {}{0}мин. }" dat:Canvas.Left="0" FontSize="14"/>
+                            <TextBlock Text="{Binding CustomerFinaliser.second_time_value, StringFormat= {}{0}мин. }" dat:Canvas.Left="0" FontSize="14"/>
+                        </StackPanel>
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Всего" dat:Canvas.Left="180"/>
+                            <TextBlock Text="{Binding CustomerFinaliser.first_cost_value,  StringFormat= {}{0}руб. }" dat:Canvas.Left="180" FontSize="14"/>
+                            <TextBlock Text="{Binding CustomerFinaliser.second_cost_value, StringFormat={}{0}руб. }" dat:Canvas.Left="180" FontSize="14"/>
+                        </StackPanel>
+                    </StackPanel>
+                    
+                    
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="2" Background="#C0C0C0" Margin="5">
                     <!--<Border Name="mask" Background="#FF7673" CornerRadius="10"/> -->
@@ -146,7 +148,7 @@
                         <Canvas Margin="0,20,0,0" Width="100" Height="60">
                             <TextBlock> 
                             <TextBlock> Итог без скидки:</TextBlock>
-                            <TextBlock FontSize="14"> 580руб.</TextBlock>
+                            <TextBlock Text="{Binding CustomerFinaliser.sum_value, StringFormat={}{0}руб. }" FontSize="14"/>
                         </TextBlock>
                             <TextBlock dat:Canvas.Top="20" dat:Canvas.Left="50"> 
                             <TextBlock> Скидка:</TextBlock>
@@ -176,10 +178,9 @@
                 </Grid>
 
             </Grid>
-            <Grid Grid.Row="1" Visibility="{Binding FinaliseMenuVisibility}" Background="#C0C0C0">
+            <Grid Grid.Row="1" Visibility="{Binding FinaliseMenuVisibility}" Background="#C0C0C0" Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <Button Width="100" Margin="10" Content="Exit" Command="{Binding ClickBack}"></Button>
-                    <Button Width="100" Margin="10" Content="Finalise"></Button>
+                    <Button Width="50" Margin="10" Content="{StaticResource Clear_Icon1}" Command="{Binding ClickBack}"/>
                 </StackPanel>
             </Grid>
         </Grid>

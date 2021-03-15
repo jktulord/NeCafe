@@ -175,35 +175,29 @@
                         X2="300" Y2="0"
                         Stroke="#A60400"
                         StrokeThickness="4"/>
-                    <Canvas Width="300" Height="100" HorizontalAlignment="Center">
-                        <Canvas dat:Canvas.Top="2" dat:Canvas.Left="5">
-                            <StackPanel>
-                                <TextBlock Text="Тип" dat:Canvas.Left="90"/>
-                                <TextBlock dat:Canvas.Left="90" FontSize="14"/>
-                                    <TextBlock Text="{Binding EditCustomer.tariff.default_calculation_value}"/>
-                                    <TextBlock Text="{Binding CustomerFinaliser.first_type_string}"/>
-                                <TextBlock/>
-                                <TextBlock dat:Canvas.Left="90" FontSize="14">
-                                    <TextBlock Text="{Binding EditCustomer.tariff.default_calculation_value}"/>
+                    <StackPanel Orientation="Horizontal" >
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Тип"/>
+                            <TextBlock FontSize="14">
+                                <TextBlock Text="{Binding EditCustomer.tariff.default_calculation_value}"/>
+                                <TextBlock Text="{Binding CustomerFinaliser.first_type_string}"/>
+                            </TextBlock>
+                            <TextBlock FontSize="14" >
+                                    <TextBlock Text="{Binding EditCustomer.tariff.conditional_calculation_value}"/>
                                     <TextBlock Text="{Binding CustomerFinaliser.second_type_string}"/>
-                                </TextBlock>
-                            </StackPanel>
-                        </Canvas>
-                        <Canvas dat:Canvas.Left="120">
-                            <StackPanel>
-                                <TextBlock Text="Время" dat:Canvas.Left="0" />
-                                <TextBlock Text="{Binding CustomerFinaliser.first_time_value, StringFormat= {}{0}мин. }" dat:Canvas.Left="0" FontSize="14"/>
-                                <TextBlock Text="{Binding CustomerFinaliser.second_time_value, StringFormat= {}{0}мин. }" dat:Canvas.Left="0" FontSize="14"/>
-                            </StackPanel>
-                        </Canvas>
-                        <Canvas dat:Canvas.Left="240">
-                            <StackPanel>
-                                <TextBlock Text="Всего" dat:Canvas.Left="180"/>
-                                <TextBlock Text="{Binding CustomerFinaliser.first_cost_value,  StringFormat= {}{0}руб. }" dat:Canvas.Left="180" FontSize="14"/>
-                                <TextBlock Text="{Binding CustomerFinaliser.second_cost_value, StringFormat={}{0}руб. }" dat:Canvas.Left="180" FontSize="14"/>
-                            </StackPanel>
-                        </Canvas>
-                    </Canvas>
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Время" dat:Canvas.Left="0" />
+                            <TextBlock Text="{Binding CustomerFinaliser.first_time_value, StringFormat= {}{0}мин. }" dat:Canvas.Left="0" FontSize="14"/>
+                            <TextBlock Text="{Binding CustomerFinaliser.second_time_value, StringFormat= {}{0}мин. }" dat:Canvas.Left="0" FontSize="14"/>
+                        </StackPanel>
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Всего" dat:Canvas.Left="180"/>
+                            <TextBlock Text="{Binding CustomerFinaliser.first_cost_value,  StringFormat= {}{0}руб. }" dat:Canvas.Left="180" FontSize="14"/>
+                            <TextBlock Text="{Binding CustomerFinaliser.second_cost_value, StringFormat={}{0}руб. }" dat:Canvas.Left="180" FontSize="14"/>
+                        </StackPanel>
+                    </StackPanel>
                 </Grid>
                 <Grid Grid.Row="2" Grid.Column="2" Background="#C0C0C0" Margin="5">
                     <!--<Border Name="mask" Background="#FF7673" CornerRadius="10"/> -->
