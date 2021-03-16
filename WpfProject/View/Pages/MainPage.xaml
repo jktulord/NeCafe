@@ -204,35 +204,36 @@
                     <StackPanel HorizontalAlignment="Center" >
                         <TextBlock HorizontalAlignment="Center" FontSize="14" >Скидки</TextBlock>
                         <TextBlock HorizontalAlignment="Center">
-                        <CheckBox></CheckBox>
-                        <TextBlock>Суммирование процентов</TextBlock>
-                    </TextBlock>
+                            <CheckBox IsChecked="{Binding CustomerFinaliser.if_discount_is_complementary}"></CheckBox>
+                            <TextBlock>Суммирование процентов</TextBlock>
+                        </TextBlock>
                         <TextBlock>
-                        <CheckBox></CheckBox>
-                        <TextBlock>-10% за день рожденья</TextBlock>
-                    </TextBlock>
+                            <CheckBox IsChecked="{Binding CustomerFinaliser.if_first_discount_applied}"></CheckBox>
+                            <TextBlock>-10% за день рожденья</TextBlock>
+                        </TextBlock>
                         <TextBlock>
-                        <CheckBox></CheckBox>
-                        <TextBlock>-5% за красивые глаза</TextBlock>
-                    </TextBlock>
+                            <CheckBox IsChecked="{Binding CustomerFinaliser.if_second_discount_applied}"></CheckBox>
+                            <TextBlock>-5% за красивые глаза</TextBlock>
+                        </TextBlock>
                         <TextBlock>
-                        <CheckBox></CheckBox>
-                        <TextBlock>-5% за зарегистрированного пользователь</TextBlock>
-                    </TextBlock>
+                            <CheckBox IsChecked="{Binding CustomerFinaliser.if_third_discount_applied}"></CheckBox>
+                            <TextBlock>-5% за зарегистрированного пользователь</TextBlock>
+                        </TextBlock>
 
                         <Canvas Margin="0,20,0,0" Width="100" Height="60">
                             <TextBlock> 
-                            <TextBlock> Итог без скидки:</TextBlock>
-                            <TextBlock Text="{Binding CustomerFinaliser.sum_value, StringFormat={}{0}руб. }" FontSize="14"/>
-                        </TextBlock>
+                                <TextBlock> Итог без скидки:</TextBlock>
+                                <TextBlock Text="{Binding CustomerFinaliser.sum_value_without_discount, StringFormat={}{0}руб. }" FontSize="16"/>
+                            </TextBlock>
                             <TextBlock dat:Canvas.Top="20" dat:Canvas.Left="50"> 
-                            <TextBlock> Скидка:</TextBlock>
-                            <TextBlock FontSize="14"> 10% (-58 руб.)</TextBlock>
-                        </TextBlock>
+                                <TextBlock> Скидка:</TextBlock>
+                                <TextBlock FontSize="16" Text="{Binding CustomerFinaliser.discount_value, StringFormat={}{0}% }"/> 
+                                <TextBlock FontSize="16" Text="{Binding CustomerFinaliser.discount_benefit_value, StringFormat=({}{0}руб.) }"/> 
+                            </TextBlock>
                             <TextBlock dat:Canvas.Top="40" dat:Canvas.Left="63"> 
-                            <TextBlock> Итог:</TextBlock>
-                            <TextBlock FontSize="14"> 580руб.</TextBlock>
-                        </TextBlock>
+                                <TextBlock> Итог:</TextBlock>
+                                <TextBlock Text="{Binding CustomerFinaliser.sum_value, StringFormat={}{0}руб. }" FontSize="16"/>
+                            </TextBlock>
                         </Canvas>
 
                         <Button FontSize="14" Content="Закрыть клиента" Width="120" Height="20" Margin="10" Background="#E0E0E0" Foreground="#A60400" />

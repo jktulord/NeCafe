@@ -249,6 +249,14 @@ namespace WpfProject.ViewModel.Pages
                     EditCustomer = SelectedCustomer;
                     CustomerFinaliser = new CustomerFinaliserManager(EditCustomer);
                     RaisePropertyChanged(() => CustomerFinaliser);
+                    Task.Factory.StartNew(() =>
+                    {
+                        while (true)
+                        {
+                            Task.Delay(UpdateTime).Wait();
+                            CustomerFinaliser.execute();
+                        }
+                    });
                 });
             }
         }
@@ -351,6 +359,7 @@ namespace WpfProject.ViewModel.Pages
                     RaisePropertyChanged(() => EditCustomerElapsedTimeDouble);
                     RaisePropertyChanged(() => EditCustomerStartTimeString);
                     RaisePropertyChanged(() => NewCustomerStartTimeString);
+                    
                 }
             });
         }

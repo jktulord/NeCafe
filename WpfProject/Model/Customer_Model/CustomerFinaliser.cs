@@ -44,9 +44,64 @@ namespace WpfProject.Model.Customer_Model
             get { return _second_cost_value; }
             set { _second_cost_value = value; RaisePropertyChanged(() => second_cost_value); }
         }
+
+
+        // Скидки
+        private bool _if_discount_is_complementary;
+        public bool if_discount_is_complementary
+        {
+            get { return _if_discount_is_complementary; }
+            set { _if_discount_is_complementary = value; RaisePropertyChanged(() => if_discount_is_complementary); }
+        }
+
+        private bool _if_first_discount_applied;
+        public bool if_first_discount_applied
+        {
+            get { return _if_first_discount_applied; }
+            set { _if_first_discount_applied = value; RaisePropertyChanged(() => if_first_discount_applied); }
+        }
+
+        private bool _if_second_discount_applied;
+        public bool if_second_discount_applied
+        {
+            get { return _if_second_discount_applied; }
+            set { _if_second_discount_applied = value; RaisePropertyChanged(() => if_second_discount_applied); }
+        }
+
+        private bool _if_third_discount_applied;
+        public bool if_third_discount_applied
+        {
+            get { return _if_third_discount_applied; }
+            set { _if_third_discount_applied = value; RaisePropertyChanged(() => if_third_discount_applied); }
+        }
+
+        private double _discount_value;
+        public double discount_value
+        {
+            get { return _discount_value; }
+            set { _discount_value = value; RaisePropertyChanged(() => discount_value); }
+        }
+
+        private double _discount_benefit_value;
+        public double discount_benefit_value
+        {
+            get { return _discount_benefit_value; }
+            set { _discount_benefit_value = value; RaisePropertyChanged(() => discount_benefit_value); }
+        }
+
+
+        private double _sum_value_without_discount;
+        public double sum_value_without_discount
+        {
+            get { return _sum_value_without_discount; }
+            set { _sum_value_without_discount = value; RaisePropertyChanged(() => sum_value_without_discount); }
+        }
+
+        private double _sum_value;
         public double sum_value
         {
-            get { return first_cost_value + second_cost_value; }
+            get { return _sum_value; }
+            set { _sum_value = value; RaisePropertyChanged(() => sum_value); }
         }
 
         // Стринги значений
@@ -230,7 +285,62 @@ namespace WpfProject.Model.Customer_Model
             RaisePropertyChanged(() => second_time_value);
             RaisePropertyChanged(() => second_cost_value);
         }
+        public void calculate_values_without_condition(double totalMinutes)
+        {
+            double condition_value;
+            first_cost_value = 0;
+            first_time_value = 0;
+            second_cost_value = 0;
+            second_time_value = 0;
 
+            if (customer.tariff.default_calculation_type == ConstLib.Calculation_Minute) // минутное вычисление
+            {
+                first_time_value = totalMinutes;
+                first_cost_value = Math.Round(first_time_value * customer.tariff.default_calculation_value, 2);
+            }
+            else if (customer.tariff.default_calculation_type == ConstLib.Calculation_Hour) // часовое
+            {
+                first_time_value = totalMinutes / 60;
+                first_cost_value = Math.Round(Math.Ceiling(first_time_value) * customer.tariff.default_calculation_value, 2);
+            }
+            else // стоп-чек
+            {
+                first_time_value = totalMinutes;
+                first_cost_value = customer.tariff.default_calculation_value;
+            }
+            
+            RaisePropertyChanged(() => first_time_value);
+            RaisePropertyChanged(() => first_cost_value);
+            RaisePropertyChanged(() => second_time_value);
+            RaisePropertyChanged(() => second_cost_value);
+        }
+        public void calculate_disconts_and_sum(double totalMinutes)
+        {
+            discount_value = 0;
+
+            if (if_discount_is_complementary)
+            {
+                if (if_first_discount_applied) { discount_value += 10; }
+                if (if_second_discount_applied) { discount_value += 5; }
+                if (if_third_discount_applied) { discount_value += 5; }
+            }
+            else
+            {
+                if (if_first_discount_applied) { discount_value = 10; }
+                if (if_second_discount_applied || (discount_value < 5)) { discount_value = 5; }
+                if (if_third_discount_applied || (discount_value < 5)) { discount_value = 5; }
+            }
+
+            sum_value_without_discount = first_cost_value + second_cost_value;
+            discount_benefit_value = sum_value_without_discount * (discount_value / 100);
+            sum_value = sum_value_without_discount - discount_benefit_value;
+
+            RaisePropertyChanged(() => discount_value);
+            RaisePropertyChanged(() => sum_value_without_discount);
+            RaisePropertyChanged(() => discount_benefit_value);
+            RaisePropertyChanged(() => sum_value);
+
+        }
         public void execute()
         {
             double totalMinutes = Math.Round(customer.elapsed_time.TotalMinutes, 2);
@@ -238,100 +348,22 @@ namespace WpfProject.Model.Customer_Model
 
             if (customer.tariff.is_there_condition) // если есть условие
             {
-                if (customer.tariff.condition_result_type == ConstLib.Condition_Result_Separate) // если вычисление сепарирование
+                if (customer.tariff.condition_result_type == ConstLib.Condition_Result_Separate) // если условие сепарирование
                 {
                     calculate_separate_values(totalMinutes);
                 }
-                else
+                else // если условие заменяющее
                 {
                     calculate_overall_values(totalMinutes);
                 }
             }
-            else
+            else // если условия нет
             {
-                
+                calculate_values_without_condition(totalMinutes);
             }
 
-            /*
-            if (customer.tariff.condition_type == ConstLib.Condition_Minute)
-            {
-                if ((totalMinutes <= customer.tariff.condition_value) || (customer.tariff.is_there_condition == false)) // Если время больше чем по условию
-                {
-                    if (customer.tariff.default_calculation_type == ConstLib.Calculation_Minute)
-                    {
-                        return_value = totalMinutes;
-                    }
-                    else if (customer.tariff.default_calculation_type == ConstLib.Calculation_Hour)
-                    {
-                        return_value = totalMinutes / 60;
-                    }
-                    else
-                    {
-                        return_value = totalMinutes;
-                    }
-
-                }
-                else
-                {
-                    if (customer.tariff.default_calculation_type == ConstLib.Calculation_Minute)
-                    {
-                        return_value = customer.tariff.default_calculation_value;
-                    }
-                    else if (customer.tariff.default_calculation_type == ConstLib.Calculation_Hour)
-                    {
-                        return_value = customer.tariff.default_calculation_value / 60;
-                    }
-                    else
-                    {
-                        return_value = customer.tariff.default_calculation_value;
-                    }
-                }
-
-            }
-            else // условие часовое
-            {
-                if (customer.tariff.condition_result_type == ConstLib.Condition_Result_Separate)
-                {
-
-                    if ((totalMinutes <= customer.tariff.condition_value) || (customer.tariff.is_there_condition == false)) // Если время больше чем по условию
-                    {
-                        if (customer.tariff.default_calculation_type == ConstLib.Calculation_Minute) // если тип вычисления минутный
-                        {
-                            return_value = totalMinutes;
-                        }
-                        else if (customer.tariff.default_calculation_type == ConstLib.Calculation_Hour) // если тип вычисления часовой
-                        {
-                            return_value = totalMinutes / 60;
-                        }
-                        else // стоп-чек
-                        {
-                            return_value = totalMinutes;
-                        }
-
-                    }
-                    else
-                    {
-                        if (customer.tariff.default_calculation_type == ConstLib.Calculation_Minute) // если тип вычисления минутный
-                        {
-                            return_value = customer.tariff.default_calculation_value;
-                        }
-                        else if (customer.tariff.default_calculation_type == ConstLib.Calculation_Hour) // если тип вычисления часовой
-                        {
-                            return_value = customer.tariff.default_calculation_value / 60;
-                        }
-                        else // стоп-чек
-                        {
-                            return_value = customer.tariff.default_calculation_value;
-                        }
-                    }
-                }
-
-            }
-            first_time_value = return_value;
-            RaisePropertyChanged(() => first_time_value);
-            */
+            calculate_disconts_and_sum(totalMinutes);
         }
-
 
     }
 }
