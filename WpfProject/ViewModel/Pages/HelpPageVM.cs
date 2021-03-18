@@ -12,14 +12,14 @@ namespace WpfProject.ViewModel.Pages
         {
             get
             {
-                return new DelegateCommand((obj) => { CustomerMethods.Save(CustomerList, SaveText); });
+                return new DelegateCommand((obj) => { });
             }
         }
         public ICommand ClickLoad
         {
             get
             {
-                return new DelegateCommand((obj) => { CustomerList = CustomerMethods.Load(CustomerList); });
+                return new DelegateCommand((obj) => { });
             }
         }
         public HelpPageVM()

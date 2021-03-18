@@ -10,6 +10,7 @@ namespace WpfProject.Model.Help_Model
 {
     public static class HelpMethods
     {
+        /*
         public static void save()
         {
             SaveFileDialog sfd = new SaveFileDialog();
@@ -47,5 +48,6 @@ namespace WpfProject.Model.Help_Model
                 }
             }
         }
+        */
     }
 }

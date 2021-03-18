@@ -9,18 +9,25 @@ namespace Model.Customer_Model
     [Serializable]
     public class Customer : ViewModelBase
     {
-        private string _name; 
-        public string name 
-        {
-            get { return _name; }
-            set { _name = value; RaisePropertyChanged(() => name); }
-        }
+        
 
         private int _id;
         public int id
         {
             get { return _id; }
             set { _id = value; RaisePropertyChanged(() => id); }
+        }
+        private string _firstname;
+        public string firstname
+        {
+            get { return _firstname; }
+            set { _firstname = value; RaisePropertyChanged(() => firstname); }
+        }
+        private string _surname;
+        public string surname
+        {
+            get { return _surname; }
+            set { _surname = value; RaisePropertyChanged(() => surname); }
         }
 
         private DateTime _start_time;
@@ -50,13 +57,28 @@ namespace Model.Customer_Model
             get { return _Active; }
             set { _Active = value; RaisePropertyChanged(() => Active); }
         }
+        public String StartTimeString
+        {
+            get
+            {
+                return start_time.ToShortTimeString();
+            }
+        }
+        public String ElapsedTimeString
+        {
+            get
+            {
+                return Convert.ToString(Math.Round(elapsed_time.TotalMinutes, 2)) + " мин.";
+            }
+        }
         public ConvertedCustomer convertedCustomer
         {
             get { return new ConvertedCustomer(this); }
         } 
-        public Customer(string name, int id, DateTime start_time, Tariff tariff)
+        public Customer(string firstname, string surname, int id, DateTime start_time, Tariff tariff)
         {
-            this.name = name;
+            this.firstname = firstname;
+            this.surname = surname;
             this.id = id;
             this.start_time = start_time;
             this.Active = false;
@@ -64,8 +86,9 @@ namespace Model.Customer_Model
         }
         public Customer(ConvertedCustomer customer)
         {
-            this.name = customer.name;
-            this.id = customer.id;
+            this.firstname = customer.firstname;
+            this.surname = customer.surname;
+            this.id = customer.id;   
             this.start_time = customer.start_time;
             this.elapsed_time = customer.elapsed_time;
             this.Active = customer.Active;
@@ -73,7 +96,8 @@ namespace Model.Customer_Model
         }
         public Customer()
         {
-            this.name = "Имя";
+            this.firstname = "";
+            this.surname = "";
             this.id = id;
             this.start_time = DateTime.Now;
             this.Active = true;
@@ -82,12 +106,19 @@ namespace Model.Customer_Model
     [Serializable]
     public class ConvertedCustomer
     {
-        private string _name;
-        public string name
+        private string _firstname;
+        public string firstname
         {
-            get { return _name; }
-            set { _name = value;}
+            get { return _firstname; }
+            set { _firstname = value;}
         }
+        private string _surname;
+        public string surname
+        {
+            get { return _surname; }
+            set { _surname = value; }
+        }
+
 
         private int _id;
         public int id
@@ -126,7 +157,8 @@ namespace Model.Customer_Model
 
         public ConvertedCustomer(Customer customer)
         {
-            this.name = customer.name;
+            this.firstname = customer.firstname;
+            this.surname = customer.surname;
             this.id = customer.id;
             this.start_time = customer.start_time;
             this.elapsed_time = customer.elapsed_time;

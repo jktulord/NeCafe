@@ -331,7 +331,6 @@ namespace WpfProject.ViewModel.Pages
             }
             catch
             {
-
                 SaveText.Value = "Data created";
                 CustomerList = CustomerMethods.Init_Customer();
             }
@@ -344,7 +343,7 @@ namespace WpfProject.ViewModel.Pages
             UpdateTime = 10;
             CustomerList = CustomerMethods.Init_Customer();
             Autoload();
-            Customer MockCustomer = new Customer("Иван", 0, DateTime.Now, new Model.Tariff_Model.Tariff());
+            Customer MockCustomer = new Customer("Иван", "Иванов",  0, DateTime.Now, new Model.Tariff_Model.Tariff());
             EditCustomer = MockCustomer;
             NewCustomer = MockCustomer;
             AvailableTariffs = TariffMethods.LoadAvailable();
