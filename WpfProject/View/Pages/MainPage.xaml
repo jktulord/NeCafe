@@ -57,27 +57,33 @@
                     </TextBlock>
                 </StackPanel>
                 </TextBlock> -->
-                
-                <ListBox Grid.Row="1" ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer}" Visibility="{Binding ListBoxVisibility}">
+
+                <ListBox Grid.Row="1" ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer}" Visibility="{Binding ListBoxVisibility}" Background="White">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <UniformGrid Columns="1" >
-                                <StackPanel Orientation="Horizontal" Margin="5" Background="#C0C0C0">
-                                    <StackPanel.Resources>
-                                        <Style TargetType="TextBlock">
-                                            <Setter Property="MinWidth" Value="100"></Setter>
-                                            <Setter Property="Height" Value="30"></Setter>
-                                        </Style>
-                                    </StackPanel.Resources>
-                                    <TextBlock Text="{Binding id}" VerticalAlignment="Center"/>
-                                    <TextBlock>
+                            <UniformGrid>
+                                
+                                <Border BorderBrush="Firebrick" BorderThickness="2,0,0,1">
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal" Background="White">
+                                        <StackPanel.Resources>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="MinWidth" Value="100"></Setter>
+                                                <Setter Property="Height" Value="30"></Setter>
+                                                <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
+                                            </Style>
+                                        </StackPanel.Resources>
+                                        <TextBlock Text="{Binding id}" />
+                                        <TextBlock>
                                         <TextBlock Text="{Binding firstname}"/>
                                         <TextBlock Text="{Binding surname}"/>
                                     </TextBlock>
-                                    <TextBlock Text="{Binding StartTimeString}" VerticalAlignment="Center"/>
-                                    <TextBlock Text="{Binding ElapsedTimeString}" VerticalAlignment="Center"/>
-                                </StackPanel>
+                                        <TextBlock Text="{Binding StartTimeString}" />
+                                        <TextBlock Text="{Binding ElapsedTimeString}"/>
+                                    </StackPanel>
+                                </Border>
+
                             </UniformGrid>
+                            
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -289,7 +295,7 @@
                         Grid.Column="0"
                         VerticalAlignment="Bottom"
                         X1="0" Y1="0"
-                        X2="300" Y2="0"
+                        X2="100" Y2="0"
                         Stroke="#A60400"
                         StrokeThickness="4"/>
                     <!--<Border Grid.Column="1" Background="#FF7673" CornerRadius="0,0,10,10"/>-->

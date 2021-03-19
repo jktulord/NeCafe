@@ -42,10 +42,7 @@ namespace WpfProject.Model
         {
             foreach (Customer i in customers)
             {
-                if (i.Active)
-                {
-                    i.elapsed_time = DateTime.Now - i.start_time;
-                }
+                i.Update();
             }
         }
         public static void Save(ObservableCollection<Customer> customers, TextLine SaveText)

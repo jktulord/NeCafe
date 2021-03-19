@@ -102,6 +102,15 @@ namespace Model.Customer_Model
             this.start_time = DateTime.Now;
             this.Active = true;
         }
+        public void Update()
+        {
+            if (Active)
+            {
+                elapsed_time = DateTime.Now - start_time;
+                RaisePropertyChanged(() => StartTimeString);
+                RaisePropertyChanged(() => ElapsedTimeString);
+            }
+        }
     }
     [Serializable]
     public class ConvertedCustomer
