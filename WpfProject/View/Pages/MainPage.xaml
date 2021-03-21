@@ -59,24 +59,35 @@
                 </TextBlock> -->
 
                 <ListBox Grid.Row="1" ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer}" Visibility="{Binding ListBoxVisibility}" Background="White">
-                    <ListBox.ItemTemplate>
+                    
+                        <ListBox.ItemTemplate>
                         <DataTemplate>
                             <UniformGrid>
-                                
                                 <Border BorderBrush="Firebrick" BorderThickness="2,0,0,1">
-                                    <StackPanel Grid.Row="0" Orientation="Horizontal" Background="White">
+                                    <StackPanel Name="stack" Grid.Row="0" Orientation="Horizontal" Background="White" Focusable="True">
                                         <StackPanel.Resources>
                                             <Style TargetType="TextBlock">
-                                                <Setter Property="MinWidth" Value="100"></Setter>
+                                                <Setter Property="Width" Value="120"></Setter>
+                                                <Setter Property="Margin" Value="1"></Setter>
                                                 <Setter Property="Height" Value="30"></Setter>
                                                 <Setter Property="VerticalAlignment" Value="Bottom"></Setter>
+                                                <Setter Property="FontSize" Value="14"></Setter>
+                                                
                                             </Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                                
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=stack, Path=IsFocused}"  Value="True">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+
                                         </StackPanel.Resources>
                                         <TextBlock Text="{Binding id}" />
-                                        <TextBlock>
                                         <TextBlock Text="{Binding firstname}"/>
                                         <TextBlock Text="{Binding surname}"/>
-                                    </TextBlock>
                                         <TextBlock Text="{Binding StartTimeString}" />
                                         <TextBlock Text="{Binding ElapsedTimeString}"/>
                                     </StackPanel>
@@ -91,7 +102,8 @@
 
             <Grid Grid.Row="1" Visibility="{Binding ListBoxVisibility}" Background="#C0C0C0" >
                 <StackPanel Orientation="Horizontal">
-                    <Button Margin="10" Content="{StaticResource Add_Icon}" Command="{Binding ClickAdd}"></Button>
+
+                    <Button Name="but1" Margin="10" Content="{StaticResource Add_Icon}" Command="{Binding ClickAdd}"></Button>
                     <Button Margin="10" Content="{StaticResource Delete_Icon}" Command="{Binding ClickDelete}"></Button>
                     <Button Margin="10" Content="{StaticResource Stop_Icon}" Command="{Binding ClickStop}"></Button>
                     <Button Margin="10" Content="{StaticResource Edit_Icon}" Command="{Binding ClickEdit}"></Button>
@@ -107,20 +119,20 @@
             <!-- Edit End -->
             <Grid  Background="White" Grid.Row="0" Visibility="{Binding FinaliseMenuVisibility}">
                 <Grid.RowDefinitions>
-                    <RowDefinition MinHeight="200" Height="3*"></RowDefinition>
-                    <RowDefinition Height="3*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="150"></RowDefinition>
                     <RowDefinition Height="10"></RowDefinition>
                     <RowDefinition Height="250"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="200"></ColumnDefinition>
                     <ColumnDefinition Width="10"></ColumnDefinition>
-                    <ColumnDefinition Width="10*"></ColumnDefinition>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="300"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="1" Background="#C0C0C0" Margin="5">
+                <Grid Grid.Column="1" Grid.Row="1" Background="#C0C0C0" Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"></ColumnDefinition>
                         <ColumnDefinition Width="100"></ColumnDefinition>
@@ -179,7 +191,7 @@
 
 
 
-                <Grid Grid.Row="0" Grid.Column="3" Background="#C0C0C0" Margin="5">
+                <Grid Grid.Row="1" Grid.Column="3" Background="#C0C0C0" Margin="5">
                     <!-- <Border  Background="#FF7673" CornerRadius="0,0,10,10"/> -->
                     <Line
                         VerticalAlignment="Top"
