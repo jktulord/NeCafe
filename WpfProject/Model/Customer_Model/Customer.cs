@@ -133,6 +133,7 @@ namespace Model.Customer_Model
             {
                 this.Active = false;
                 freeze_time = DateTime.Now;
+                RaisePropertyChanged(() => FreezeTimeString);
             }
             else
             {

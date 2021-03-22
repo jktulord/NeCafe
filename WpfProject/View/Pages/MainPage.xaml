@@ -154,7 +154,7 @@
                             </Canvas>
                             <Canvas dat:Canvas.Left="120" dat:Canvas.Bottom="6">
                                 <TextBlock Text="Время Заморозки" dat:Canvas.Bottom="4"/>
-                                <TextBlock Text="{Binding EditCustomer.freeze_time}" FontSize="16" dat:Canvas.Bottom="16"/>
+                                <TextBlock Text="{Binding EditCustomer.FreezeTimeString}" FontSize="16" dat:Canvas.Bottom="16"/>
                             </Canvas>
                             <Button  dat:Canvas.Left="10" dat:Canvas.Bottom="14" Width="25"  Content="{StaticResource Edit_Icon1}"></Button>
                             <Button dat:Canvas.Left="40" dat:Canvas.Bottom="14" Width="25" Command="{Binding ClickEditStop}" Content="{StaticResource Stop_Icon1}"></Button>
