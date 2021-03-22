@@ -71,6 +71,13 @@ namespace Model.Customer_Model
                 return start_time.ToShortTimeString();
             }
         }
+        public String FreezeTimeString
+        {
+            get
+            {
+                return freeze_time.ToShortTimeString();
+            }
+        }
         public String ElapsedTimeString
         {
             get
@@ -119,6 +126,19 @@ namespace Model.Customer_Model
                 RaisePropertyChanged(() => StartTimeString);
                 RaisePropertyChanged(() => ElapsedTimeString);
             }
+        }
+        public void Freeze()
+        {
+            if (this.Active)
+            {
+                this.Active = false;
+                freeze_time = DateTime.Now;
+            }
+            else
+            {
+                this.Active = true;
+            }
+            
         }
     }
     [Serializable]

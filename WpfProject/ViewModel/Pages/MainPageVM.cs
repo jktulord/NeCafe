@@ -237,7 +237,7 @@ namespace WpfProject.ViewModel.Pages
         {
             get
             {
-                return new DelegateCommand((obj) => { SelectedCustomer.Active = SelectedCustomer.Active ? false : true; });
+                return new DelegateCommand((obj) => { SelectedCustomer.Freeze(); });
             }
         }
         public ICommand ClickEdit
@@ -300,7 +300,7 @@ namespace WpfProject.ViewModel.Pages
         {
             get
             {
-                return new DelegateCommand((obj) => { EditCustomer.Active = EditCustomer.Active ? false : true; });
+                return new DelegateCommand((obj) => { EditCustomer.Freeze(); });
             }
         }
         // Переключение подокон
