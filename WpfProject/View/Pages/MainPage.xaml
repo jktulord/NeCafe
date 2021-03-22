@@ -120,75 +120,61 @@
             <Grid  Background="White" Grid.Row="0" Visibility="{Binding FinaliseMenuVisibility}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="150"></RowDefinition>
+                    <RowDefinition Height="200"></RowDefinition>
                     <RowDefinition Height="10"></RowDefinition>
                     <RowDefinition Height="250"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="200"></ColumnDefinition>
+                    <ColumnDefinition Width="300"></ColumnDefinition>
                     <ColumnDefinition Width="10"></ColumnDefinition>
                     <ColumnDefinition Width="300"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="1" Grid.Row="1" Background="#C0C0C0" Margin="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
-                        <ColumnDefinition Width="100"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <!--<Border Grid.Column="0" Background="#FF7673" CornerRadius="0,0,10,10"/> -->
-                    <Line   
-                        Grid.Column="0"
-                        VerticalAlignment="Top"
-                        X1="0" Y1="0"
-                        X2="300" Y2="0"
-                        Stroke="#A60400"
-                        StrokeThickness="4"/>
-                    <Line   
-                        Grid.Column="0"
-                        VerticalAlignment="Bottom"
-                        X1="0" Y1="0"
-                        X2="300" Y2="0"
-                        Stroke="#A60400"
-                        StrokeThickness="4"/>
-                    <!--<Border Grid.Column="1" Background="#FF7673" CornerRadius="0,0,10,10"/>-->
-                    <Line   
-                        Grid.Column="1"
-                        VerticalAlignment="Top"
-                        X1="0" Y1="0"
-                        X2="300" Y2="0"
-                        Stroke="#A60400"
-                        StrokeThickness="4"/>
-                    <Line   
-                        Grid.Column="1"
-                        VerticalAlignment="Bottom"
-                        X1="0" Y1="0"
-                        X2="300" Y2="0"
-                        Stroke="#A60400"
-                        StrokeThickness="4"/>
-                    <Canvas Grid.Column="0" Width="100" Height="100" VerticalAlignment="Top">
-                        <Canvas dat:Canvas.Left="10">
-                            <TextBlock Text="Имя" dat:Canvas.Top="4"/>
-                            <TextBlock Text="{Binding EditCustomer.firstname}" FontSize="16" dat:Canvas.Top="16"/>
-                        </Canvas>
-                        <Canvas dat:Canvas.Left="10" dat:Canvas.Top="40">
-                            <TextBlock Text="Время" dat:Canvas.Top="4"/>
-                            <TextBlock Text="{Binding EditCustomerElapsedTimeDouble}" FontSize="16" dat:Canvas.Top="16"/>
-                        </Canvas>
-                    </Canvas>
-                    <Canvas Grid.Column="1" Width="100" Height="100" VerticalAlignment="Top">
-                        <Canvas dat:Canvas.Left="10">
-                            <TextBlock Text="Тариф" dat:Canvas.Top="4"/>
-                            <TextBlock Text="{Binding EditCustomer.tariff.name}" FontSize="16" dat:Canvas.Top="16"/>
-                        </Canvas>
-                        <Canvas dat:Canvas.Left="10" dat:Canvas.Top="40">
-                            <TextBlock Text="Отсчет от" dat:Canvas.Top="4"/>
-                            <TextBlock Text="{Binding EditCustomerStartTimeString}" FontSize="16" dat:Canvas.Top="16"/>
-                        </Canvas>
-                    </Canvas>
-                </Grid>
+                <Border Grid.Column="1" Grid.Row="1" BorderBrush="Firebrick" BorderThickness="0,3,0,3">
+                    <Grid  Background="#C0C0C0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
 
+                        <Canvas Grid.Column="0" Width="200" Height="200" VerticalAlignment="Top">
+                            <Canvas dat:Canvas.Left="10">
+                                <TextBlock Text="Имя" dat:Canvas.Top="4"/>
+                                <TextBlock Text="{Binding EditCustomer.firstname}" FontSize="16" dat:Canvas.Top="16"/>
+                            </Canvas>
+                            <Canvas dat:Canvas.Left="10" dat:Canvas.Top="40">
+                                <TextBlock Text="Время" dat:Canvas.Top="4"/>
+                                <TextBlock Text="{Binding EditCustomerElapsedTimeDouble}" FontSize="16" dat:Canvas.Top="16"/>
+                            </Canvas>
+                            <Canvas dat:Canvas.Left="10" dat:Canvas.Top="80">
+                                <TextBlock Text="Тариф" dat:Canvas.Top="4"/>
+                                <TextBlock Text="{Binding EditCustomer.tariff.name}" FontSize="16" dat:Canvas.Top="16"/>
+                            </Canvas>
+                            <Canvas dat:Canvas.Left="120" dat:Canvas.Bottom="6">
+                                <TextBlock Text="Время Заморозки" dat:Canvas.Bottom="4"/>
+                                <TextBlock Text="{Binding EditCustomer.freeze_time}" FontSize="16" dat:Canvas.Bottom="16"/>
+                            </Canvas>
+                            <Button  dat:Canvas.Left="10" dat:Canvas.Bottom="14" Width="25" Content="{StaticResource Edit_Icon1}"></Button>
+                            <Button dat:Canvas.Left="40" dat:Canvas.Bottom="14" Width="25" Content="{StaticResource Stop_Icon1}"></Button>
+                            
+                        </Canvas>
+                        <Canvas Grid.Column="1" Width="300" Height="100" VerticalAlignment="Top">
+                            <Canvas dat:Canvas.Left="10">
+                                <TextBlock Text="Фамилия" dat:Canvas.Top="4"/>
+                                <TextBlock Text="{Binding EditCustomer.surname}" FontSize="16" dat:Canvas.Top="16"/>
+                            </Canvas>
+                            <Canvas dat:Canvas.Left="10" dat:Canvas.Top="40">
+                                <TextBlock Text="Отсчет от" dat:Canvas.Top="4"/>
+                                <TextBlock Text="{Binding EditCustomerStartTimeString}" FontSize="16" dat:Canvas.Top="16"/>
+                            </Canvas>
+                            
+                        </Canvas>
+                        
+
+                    </Grid>
+                </Border>
 
 
                 <Grid Grid.Row="1" Grid.Column="3" Background="#C0C0C0" Margin="5">

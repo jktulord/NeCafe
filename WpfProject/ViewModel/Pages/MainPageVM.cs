@@ -343,7 +343,7 @@ namespace WpfProject.ViewModel.Pages
             UpdateTime = 10;
             CustomerList = CustomerMethods.Init_Customer();
             Autoload();
-            Customer MockCustomer = new Customer("Иван", "Иванов",  0, DateTime.Now, new Model.Tariff_Model.Tariff());
+            Customer MockCustomer = new Customer();
             EditCustomer = MockCustomer;
             NewCustomer = MockCustomer;
             AvailableTariffs = TariffMethods.LoadAvailable();

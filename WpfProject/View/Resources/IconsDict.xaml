@@ -63,6 +63,26 @@
             </Path>
         </Canvas>
     </Viewbox>
+    <Viewbox x:Key="Edit_Icon1" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform">
+        <Canvas Name="Edit_Icon1" Width="24" Height="24">
+            <Canvas.RenderTransform>
+                <TranslateTransform X="0" Y="0"/>
+            </Canvas.RenderTransform>
+            <Canvas.Resources/>
+            <!--Unknown tag: metadata-->
+            <!--Unknown tag: sodipodi:namedview-->
+            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  Fill="Transparent">
+                <Path.Data>
+                    <PathGeometry Figures="M0 0h24v24H0V0z" FillRule="NonZero"/>
+                </Path.Data>
+            </Path>
+            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="#000000">
+                <Path.Data>
+                    <PathGeometry Figures="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM5.92 19H5v-.92l9.06-9.06.92.92L5.92 19zM20.71 5.63l-2.34-2.34c-.2-.2-.45-.29-.71-.29s-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41z" FillRule="NonZero"/>
+                </Path.Data>
+            </Path>
+        </Canvas>
+    </Viewbox>
 
     <Viewbox x:Key="Stop_Icon" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform">
         <Canvas Name="svg12" Width="24" Height="24">
@@ -90,7 +110,33 @@
             </Canvas>
         </Canvas>
     </Viewbox>
-
+    <Viewbox x:Key="Stop_Icon1" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform">
+        <Canvas Name="Stop_Icon1" Width="24" Height="24">
+            <Canvas.RenderTransform>
+                <TranslateTransform X="0" Y="0"/>
+            </Canvas.RenderTransform>
+            <Canvas.Resources/>
+            <!--Unknown tag: metadata-->
+            <!--Unknown tag: sodipodi:namedview-->
+            <Canvas >
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    <Path.Data>
+                        <PathGeometry Figures="M0 0h24v24H0V0z" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+            </Canvas>
+            <Canvas>
+                <Canvas >
+                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="#000000">
+                        <Path.Data>
+                            <PathGeometry Figures="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10s10-4.49 10-10S17.51 2 12 2z M12 20c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8 S16.41 20 12 20z M15 12c0 1.66-1.34 3-3 3s-3-1.34-3-3s1.34-3 3-3S15 10.34 15 12z" FillRule="NonZero"/>
+                        </Path.Data>
+                    </Path>
+                </Canvas>
+            </Canvas>
+        </Canvas>
+    </Viewbox>
+    
     <Viewbox x:Key="Check_Icon" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform">
         <Canvas Name="svg7" Width="24" Height="24">
             <Canvas.RenderTransform>
@@ -99,12 +145,12 @@
             <Canvas.Resources/>
             <!--Unknown tag: metadata-->
             <!--Unknown tag: sodipodi:namedview-->
-            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path21">
+            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="Transparent">
                 <Path.Data>
                     <PathGeometry Figures="M0 0h24v24H0z" FillRule="NonZero"/>
                 </Path.Data>
             </Path>
-            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path41" Fill="#000000">
+            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="#000000">
                 <Path.Data>
                     <PathGeometry Figures="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" FillRule="NonZero"/>
                 </Path.Data>
@@ -120,7 +166,7 @@
             <Canvas.Resources/>
             <!--Unknown tag: metadata-->
             <!--Unknown tag: sodipodi:namedview-->
-            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path22">
+            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Fill="Transparent">
                 <Path.Data>
                     <PathGeometry Figures="M0 0h24v24H0z" FillRule="NonZero"/>
                 </Path.Data>
@@ -132,7 +178,6 @@
             </Path>
         </Canvas>
     </Viewbox>
-    
     <Viewbox x:Key="Clear_Icon1" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform">
         <Canvas Name="svg9" Width="24" Height="24">
             <Canvas.RenderTransform>
@@ -155,6 +200,7 @@
     </Viewbox>
     
     <Style TargetType="Button">
+        <Setter Property="Foreground" Value="#A60400"></Setter>
         <Setter Property="BorderThickness" Value="0"></Setter>
         <Setter Property="Background" Value="White"></Setter>
     </Style>

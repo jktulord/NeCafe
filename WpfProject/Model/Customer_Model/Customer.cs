@@ -37,6 +37,13 @@ namespace Model.Customer_Model
             set { _start_time = value; RaisePropertyChanged(() => start_time); }
         }
 
+        private DateTime _freeze_time;
+        public DateTime freeze_time
+        {
+            get { return _freeze_time; }
+            set { _freeze_time = value; RaisePropertyChanged(() => freeze_time); }
+        }
+
         private TimeSpan _elapsed_time;
         public TimeSpan elapsed_time
         {
@@ -75,12 +82,13 @@ namespace Model.Customer_Model
         {
             get { return new ConvertedCustomer(this); }
         } 
-        public Customer(string firstname, string surname, int id, DateTime start_time, Tariff tariff)
+        public Customer(string firstname, string surname, int id, DateTime start_time, DateTime freeze_time, Tariff tariff)
         {
             this.firstname = firstname;
             this.surname = surname;
             this.id = id;
             this.start_time = start_time;
+            this.freeze_time = freeze_time;
             this.Active = false;
             this.tariff = tariff;
         }
@@ -90,6 +98,7 @@ namespace Model.Customer_Model
             this.surname = customer.surname;
             this.id = customer.id;   
             this.start_time = customer.start_time;
+            this.freeze_time = customer.freeze_time;
             this.elapsed_time = customer.elapsed_time;
             this.Active = customer.Active;
             this.tariff = new Tariff(customer.tariff);
@@ -143,6 +152,13 @@ namespace Model.Customer_Model
             set { _start_time = value; }
         }
 
+        private DateTime _freeze_time;
+        public DateTime freeze_time
+        {
+            get { return _freeze_time; }
+            set { _freeze_time = value; }
+        }
+
         private TimeSpan _elapsed_time;
         public TimeSpan elapsed_time
         {
@@ -170,6 +186,7 @@ namespace Model.Customer_Model
             this.surname = customer.surname;
             this.id = customer.id;
             this.start_time = customer.start_time;
+            this.freeze_time = customer.freeze_time;
             this.elapsed_time = customer.elapsed_time;
             this.Active = customer.Active;
             this.tariff = customer.tariff.Converted;
