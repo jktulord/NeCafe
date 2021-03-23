@@ -16,16 +16,20 @@
             </Grid.RowDefinitions>
             <Grid  Background="White" Grid.Row="0" Visibility="{Binding FinaliseMenuVisibility}">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="100"></RowDefinition>
                     <RowDefinition Height="10"></RowDefinition>
                     <RowDefinition Height="250"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="200"></ColumnDefinition>
                     <ColumnDefinition Width="10"></ColumnDefinition>
-                    <ColumnDefinition Width="300"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Row="0" Background="#C0C0C0" Margin="5">
+                <Grid Grid.Column="1" Background="#C0C0C0" Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"></ColumnDefinition>
                         <ColumnDefinition Width="100"></ColumnDefinition>
@@ -63,7 +67,7 @@
                     <Canvas Grid.Column="0" Width="100" Height="100" VerticalAlignment="Top">
                         <Canvas dat:Canvas.Left="10">
                             <TextBlock Text="Имя" dat:Canvas.Top="4"/>
-                            <TextBlock Text="{Binding EditCustomer.name}" FontSize="16" dat:Canvas.Top="16"/>
+                            <TextBlock Text="{Binding EditCustomer.firstname}" FontSize="16" dat:Canvas.Top="16"/>
                         </Canvas>
                         <Canvas dat:Canvas.Left="10" dat:Canvas.Top="40">
                             <TextBlock Text="Время" dat:Canvas.Top="4"/>
@@ -73,7 +77,7 @@
                     <Canvas Grid.Column="1" Width="100" Height="100" VerticalAlignment="Top">
                         <Canvas dat:Canvas.Left="10">
                             <TextBlock Text="Тариф" dat:Canvas.Top="4"/>
-                            <TextBlock Text="{Binding EditCustomer.tariff}" FontSize="16" dat:Canvas.Top="16"/>
+                            <TextBlock Text="{Binding EditCustomer.tariff.name}" FontSize="16" dat:Canvas.Top="16"/>
                         </Canvas>
                         <Canvas dat:Canvas.Left="10" dat:Canvas.Top="40">
                             <TextBlock Text="Отсчет от" dat:Canvas.Top="4"/>
@@ -84,7 +88,7 @@
 
 
 
-                <Grid Grid.Row="0" Grid.Column="2" Background="#C0C0C0" Margin="5">
+                <Grid Grid.Row="0" Grid.Column="3" Background="#C0C0C0" Margin="5">
                     <!-- <Border  Background="#FF7673" CornerRadius="0,0,10,10"/> -->
                     <Line
                         VerticalAlignment="Top"
@@ -98,64 +102,65 @@
                         X2="300" Y2="0"
                         Stroke="#A60400"
                         StrokeThickness="4"/>
-                    <Canvas Width="300" Height="100" HorizontalAlignment="Center">
-                        <Canvas dat:Canvas.Top="2" dat:Canvas.Left="5">
-                            <StackPanel>
-                                <TextBlock Text="Тип" dat:Canvas.Left="90"/>
-                                <TextBlock Text="5руб. в мин." dat:Canvas.Left="90" FontSize="14"/>
-                                <TextBlock Text="4руб. в мин." dat:Canvas.Left="90" FontSize="14"/>
-                            </StackPanel>
-                        </Canvas>
-                        <Canvas dat:Canvas.Left="120">
-                            <StackPanel>
-                                <TextBlock Text="Время" dat:Canvas.Left="0" />
-                                <TextBlock Text="100 мин." dat:Canvas.Left="0" FontSize="14"/>
-                                <TextBlock Text="20 мин." dat:Canvas.Left="0" FontSize="14"/>
-                            </StackPanel>
-                        </Canvas>
-                        <Canvas dat:Canvas.Left="240">
-                            <StackPanel>
-                                <TextBlock Text="Всего" dat:Canvas.Left="180"/>
-                                <TextBlock Text="500руб." dat:Canvas.Left="180" FontSize="14"/>
-                                <TextBlock Text="80руб." dat:Canvas.Left="180" FontSize="14"/>
-                            </StackPanel>
-                        </Canvas>
-                    </Canvas>
+                    <StackPanel Orientation="Horizontal" >
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Тип"/>
+                            <TextBlock FontSize="14">
+                                <TextBlock Text="{Binding EditCustomer.tariff.default_calculation_value}"/>
+                                <TextBlock Text="{Binding CustomerFinaliser.first_type_string}"/>
+                            </TextBlock>
+                            <TextBlock FontSize="14" >
+                                    <TextBlock Text="{Binding EditCustomer.tariff.conditional_calculation_value}"/>
+                                    <TextBlock Text="{Binding CustomerFinaliser.second_type_string}"/>
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Время" dat:Canvas.Left="0" />
+                            <TextBlock Text="{Binding CustomerFinaliser.first_time_value, StringFormat= {}{0}мин. }" dat:Canvas.Left="0" FontSize="14"/>
+                            <TextBlock Text="{Binding CustomerFinaliser.second_time_value, StringFormat= {}{0}мин. }" dat:Canvas.Left="0" FontSize="14"/>
+                        </StackPanel>
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Всего" dat:Canvas.Left="180"/>
+                            <TextBlock Text="{Binding CustomerFinaliser.first_cost_value,  StringFormat= {}{0}руб. }" dat:Canvas.Left="180" FontSize="14"/>
+                            <TextBlock Text="{Binding CustomerFinaliser.second_cost_value, StringFormat={}{0}руб. }" dat:Canvas.Left="180" FontSize="14"/>
+                        </StackPanel>
+                    </StackPanel>
                 </Grid>
-                <Grid Grid.Row="2" Grid.Column="2" Background="#C0C0C0" Margin="5">
+                <Grid Grid.Row="3" Grid.Column="3" Background="#C0C0C0" Margin="5">
                     <!--<Border Name="mask" Background="#FF7673" CornerRadius="10"/> -->
                     <StackPanel HorizontalAlignment="Center" >
                         <TextBlock HorizontalAlignment="Center" FontSize="14" >Скидки</TextBlock>
                         <TextBlock HorizontalAlignment="Center">
-                        <CheckBox></CheckBox>
-                        <TextBlock>Суммирование процентов</TextBlock>
-                    </TextBlock>
+                            <CheckBox IsChecked="{Binding CustomerFinaliser.if_discount_is_complementary}"></CheckBox>
+                            <TextBlock>Суммирование процентов</TextBlock>
+                        </TextBlock>
                         <TextBlock>
-                        <CheckBox></CheckBox>
-                        <TextBlock>-10% за день рожденья</TextBlock>
-                    </TextBlock>
+                            <CheckBox IsChecked="{Binding CustomerFinaliser.if_first_discount_applied}"></CheckBox>
+                            <TextBlock>-10% за день рожденья</TextBlock>
+                        </TextBlock>
                         <TextBlock>
-                        <CheckBox></CheckBox>
-                        <TextBlock>-5% за красивые глаза</TextBlock>
-                    </TextBlock>
+                            <CheckBox IsChecked="{Binding CustomerFinaliser.if_second_discount_applied}"></CheckBox>
+                            <TextBlock>-5% за красивые глаза</TextBlock>
+                        </TextBlock>
                         <TextBlock>
-                        <CheckBox></CheckBox>
-                        <TextBlock>-5% за зарегистрированного пользователь</TextBlock>
-                    </TextBlock>
+                            <CheckBox IsChecked="{Binding CustomerFinaliser.if_third_discount_applied}"></CheckBox>
+                            <TextBlock>-5% за зарегистрированного пользователь</TextBlock>
+                        </TextBlock>
 
                         <Canvas Margin="0,20,0,0" Width="100" Height="60">
                             <TextBlock> 
-                            <TextBlock> Итог без скидки:</TextBlock>
-                            <TextBlock FontSize="14"> 580руб.</TextBlock>
-                        </TextBlock>
+                                <TextBlock> Итог без скидки:</TextBlock>
+                                <TextBlock Text="{Binding CustomerFinaliser.sum_value_without_discount, StringFormat={}{0}руб. }" FontSize="16"/>
+                            </TextBlock>
                             <TextBlock dat:Canvas.Top="20" dat:Canvas.Left="50"> 
-                            <TextBlock> Скидка:</TextBlock>
-                            <TextBlock FontSize="14"> 10% (-58 руб.)</TextBlock>
-                        </TextBlock>
+                                <TextBlock> Скидка:</TextBlock>
+                                <TextBlock FontSize="16" Text="{Binding CustomerFinaliser.discount_value, StringFormat={}{0}% }"/> 
+                                <TextBlock FontSize="16" Text="{Binding CustomerFinaliser.discount_benefit_value, StringFormat=({}{0}руб.) }"/> 
+                            </TextBlock>
                             <TextBlock dat:Canvas.Top="40" dat:Canvas.Left="63"> 
-                            <TextBlock> Итог:</TextBlock>
-                            <TextBlock FontSize="14"> 580руб.</TextBlock>
-                        </TextBlock>
+                                <TextBlock> Итог:</TextBlock>
+                                <TextBlock Text="{Binding CustomerFinaliser.sum_value, StringFormat={}{0}руб. }" FontSize="16"/>
+                            </TextBlock>
                         </Canvas>
 
                         <Button FontSize="14" Content="Закрыть клиента" Width="120" Height="20" Margin="10" Background="#E0E0E0" Foreground="#A60400" />
@@ -174,12 +179,10 @@
                         Stroke="#A60400"
                         StrokeThickness="4"/>
                 </Grid>
-
             </Grid>
-            <Grid Grid.Row="1" Visibility="{Binding FinaliseMenuVisibility}" Background="#C0C0C0">
+            <Grid Grid.Row="1" Visibility="{Binding FinaliseMenuVisibility}" Background="#C0C0C0" Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <Button Width="100" Margin="10" Content="Exit" Command="{Binding ClickBack}"></Button>
-                    <Button Width="100" Margin="10" Content="Finalise"></Button>
+                    <Button Width="50" Margin="10" Content="{StaticResource Clear_Icon1}" Command="{Binding ClickBack}"/>
                 </StackPanel>
             </Grid>
         </Grid>

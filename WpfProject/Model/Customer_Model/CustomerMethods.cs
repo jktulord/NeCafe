@@ -28,7 +28,7 @@ namespace WpfProject.Model
         public static ObservableCollection<Customer> Add_Customer(ObservableCollection<Customer> customers)
         {
             Random rnd = new Random();
-            customers.Add(new Customer("Иван"+Convert.ToString(rnd.Next(1, 99)), 1+customers.Count, DateTime.Now, new Tariff_Model.Tariff()));
+            customers.Add(new Customer());
             return customers;
         }
         public static ObservableCollection<Customer> Add_Custom_Customer(ObservableCollection<Customer> customers, Customer customer)
@@ -42,10 +42,7 @@ namespace WpfProject.Model
         {
             foreach (Customer i in customers)
             {
-                if (i.Active)
-                {
-                    i.elapsed_time = DateTime.Now - i.start_time;
-                }
+                i.Update();
             }
         }
         public static void Save(ObservableCollection<Customer> customers, TextLine SaveText)
