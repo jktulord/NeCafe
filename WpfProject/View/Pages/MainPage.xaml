@@ -58,12 +58,12 @@
                 </StackPanel>
                 </TextBlock> -->
 
-                <ListBox Grid.Row="1" ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer}" Visibility="{Binding ListBoxVisibility}" Background="White">
+                <ListBox Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer}" Visibility="{Binding ListBoxVisibility}" Background="White">
 
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <UniformGrid>
-                                <Border BorderBrush="Firebrick" BorderThickness="2,0,0,1">
+                                <Border BorderBrush="Firebrick" BorderThickness="5,0,0,2" Margin="2">
                                     <StackPanel Name="stack" Grid.Row="0" Orientation="Horizontal" Background="White" Focusable="True">
                                         <StackPanel.Resources>
                                             <Style TargetType="TextBlock">
@@ -132,8 +132,9 @@
                     <ColumnDefinition Width="300"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
+                
                 <Border Grid.Column="1" Grid.Row="1" BorderBrush="Firebrick" BorderThickness="0,3,0,3">
-                    <Grid  Background="#C0C0C0">
+                    <Grid Background="#C0C0C0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -153,12 +154,12 @@
                                 <TextBlock Text="{Binding EditCustomer.tariff.name}" FontSize="16" dat:Canvas.Top="16"/>
                             </Canvas>
                             <Canvas dat:Canvas.Left="120" dat:Canvas.Bottom="6">
-                                <TextBlock Text="Время Заморозки" dat:Canvas.Bottom="4"/>
+                                <TextBlock Text="Последнее Время Заморозки" dat:Canvas.Bottom="4"/>
                                 <TextBlock Text="{Binding EditCustomer.FreezeTimeString}" FontSize="16" dat:Canvas.Bottom="16"/>
                             </Canvas>
-                            <Button  dat:Canvas.Left="10" dat:Canvas.Bottom="14" Width="25"  Content="{StaticResource Edit_Icon1}"></Button>
-                            <Button dat:Canvas.Left="40" dat:Canvas.Bottom="14" Width="25" Command="{Binding ClickEditStop}" Content="{StaticResource Stop_Icon1}"></Button>
-
+                            <Button  dat:Canvas.Left="10" dat:Canvas.Bottom="14" Width="25"  Content="{StaticResource Edit_Icon1}"/>
+                            <Button dat:Canvas.Left="40" dat:Canvas.Bottom="14" Width="25" Command="{Binding ClickEditStop}" Content="{StaticResource Stop_Icon1}"/>
+                            
                         </Canvas>
                         <Canvas Grid.Column="1" Width="300" Height="100" VerticalAlignment="Top">
                             <Canvas dat:Canvas.Left="10">
@@ -169,14 +170,11 @@
                                 <TextBlock Text="Отсчет от" dat:Canvas.Top="4"/>
                                 <TextBlock Text="{Binding EditCustomerStartTimeString}" FontSize="16" dat:Canvas.Top="16"/>
                             </Canvas>
-
                         </Canvas>
-
-
                     </Grid>
                 </Border>
 
-                <Border Grid.Column="1" Grid.Row="3" BorderBrush="Firebrick" BorderThickness="0,3,0,3">
+                <Border Grid.Column="1" Grid.Row="3" BorderBrush="Firebrick" BorderThickness="0,3,0,3" Visibility="{Binding FinalisingVisibility}">
                     <Grid  Background="#C0C0C0">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock HorizontalAlignment="Center" FontSize="14" >Скидки</TextBlock>
@@ -199,65 +197,71 @@
                         </StackPanel>
                     </Grid>
                 </Border>
-                
-                <Border Grid.Row="1" Grid.Column="3"  BorderBrush="Firebrick" BorderThickness="0,3,0,3">
+
+                <Border Grid.Row="1" Grid.Column="3"  BorderBrush="Firebrick" BorderThickness="0,3,0,3" Visibility="{Binding FinalisingVisibility}">
                     <Grid Background="#C0C0C0">
                         <!-- <Border  Background="#FF7673" CornerRadius="0,0,10,10"/> -->
                         <StackPanel Orientation="Horizontal" >
                             <StackPanel Margin="10">
                                 <TextBlock Text="Тип"/>
-                                <TextBlock FontSize="14">
-                                <TextBlock Text="{Binding EditCustomer.tariff.default_calculation_value}"/>
-                                <TextBlock Text="{Binding CustomerFinaliser.first_type_string}"/>
-                            </TextBlock>
-                                <TextBlock FontSize="14" >
+                                <TextBlock FontSize="16">
+                                    <TextBlock Text="{Binding EditCustomer.tariff.default_calculation_value}"/>
+                                    <TextBlock Text="{Binding CustomerFinaliser.first_type_string}"/>
+                                </TextBlock>
+                                <TextBlock FontSize="16" >
                                     <TextBlock Text="{Binding EditCustomer.tariff.conditional_calculation_value}"/>
                                     <TextBlock Text="{Binding CustomerFinaliser.second_type_string}"/>
-                            </TextBlock>
+                                </TextBlock>
                             </StackPanel>
                             <StackPanel Margin="10">
                                 <TextBlock Text="Время" dat:Canvas.Left="0" />
-                                <TextBlock Text="{Binding CustomerFinaliser.first_time_value, StringFormat= {}{0}мин. }" dat:Canvas.Left="0" FontSize="14"/>
-                                <TextBlock Text="{Binding CustomerFinaliser.second_time_value, StringFormat= {}{0}мин. }" dat:Canvas.Left="0" FontSize="14"/>
+                                <TextBlock Text="{Binding CustomerFinaliser.first_time_value, StringFormat= {}{0}мин. }" dat:Canvas.Left="0" FontSize="16"/>
+                                <TextBlock Text="{Binding CustomerFinaliser.second_time_value, StringFormat= {}{0}мин. }" dat:Canvas.Left="0" FontSize="16"/>
                             </StackPanel>
                             <StackPanel Margin="10">
                                 <TextBlock Text="Всего" dat:Canvas.Left="180"/>
-                                <TextBlock Text="{Binding CustomerFinaliser.first_cost_value,  StringFormat= {}{0}руб. }" dat:Canvas.Left="180" FontSize="14"/>
-                                <TextBlock Text="{Binding CustomerFinaliser.second_cost_value, StringFormat={}{0}руб. }" dat:Canvas.Left="180" FontSize="14"/>
+                                <TextBlock Text="{Binding CustomerFinaliser.first_cost_value,  StringFormat= {}{0}руб. }" dat:Canvas.Left="180" FontSize="16"/>
+                                <TextBlock Text="{Binding CustomerFinaliser.second_cost_value, StringFormat={}{0}руб. }" dat:Canvas.Left="180" FontSize="16"/>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="3" Grid.Column="3"  BorderBrush="Firebrick" BorderThickness="0,3,0,3">
+                <Border Grid.Row="3" Grid.Column="3"  BorderBrush="Firebrick" BorderThickness="0,3,0,3" Visibility="{Binding FinalisingVisibility}">
                     <Grid Background="#C0C0C0">
                         <!--<Border Name="mask" Background="#FF7673" CornerRadius="10"/> -->
                         <StackPanel HorizontalAlignment="Center" >
                             <Canvas Margin="0,20,0,0" Width="100" Height="60">
                                 <TextBlock> 
                                     <TextBlock> Итог без скидки:</TextBlock>
-                                    <TextBlock Text="{Binding CustomerFinaliser.sum_value_without_discount, StringFormat={}{0}руб. }" FontSize="16"/>
+                                    <TextBlock FontSize="18" Text="{Binding CustomerFinaliser.sum_value_without_discount, StringFormat={}{0}руб. }" />
                                 </TextBlock>
                                 <TextBlock dat:Canvas.Top="20" dat:Canvas.Left="50"> 
                                    <TextBlock> Скидка:</TextBlock>
-                                   <TextBlock FontSize="16" Text="{Binding CustomerFinaliser.discount_value, StringFormat={}{0}% }"/> 
-                                   <TextBlock FontSize="16" Text="{Binding CustomerFinaliser.discount_benefit_value, StringFormat=({}{0}руб.) }"/> 
+                                   <TextBlock FontSize="18" Text="{Binding CustomerFinaliser.discount_value, StringFormat={}{0}% }"/> 
+                                   <TextBlock FontSize="18" Text="{Binding CustomerFinaliser.discount_benefit_value, StringFormat=({}{0}руб.) }"/> 
                                </TextBlock>
-                               <TextBlock dat:Canvas.Top="40" dat:Canvas.Left="63"> 
+                                <TextBlock dat:Canvas.Top="40" dat:Canvas.Left="63"> 
                                    <TextBlock> Итог:</TextBlock>
-                                   <TextBlock Text="{Binding CustomerFinaliser.sum_value, StringFormat={}{0}руб. }" FontSize="16"/>
+                                   <TextBlock Text="{Binding CustomerFinaliser.sum_value, StringFormat={}{0}руб. }" FontSize="18"/>
                               </TextBlock>
                             </Canvas>
-                            <Button FontSize="14" Content="Закрыть клиента" Width="120" Height="20" Margin="10" Background="#E0E0E0" Foreground="#A60400" />
+                            <TextBlock>
+                                <Button FontSize="14" Content="Отмена" Command="{Binding ClickEditFinishCancel}" Width="120" Height="20" Margin="10" Background="#E0E0E0" Foreground="#A60400" />
+                                <Button FontSize="14" Content="Закрыть клиента" Command="{Binding ClickEditFinishEnd}" Width="120" Height="20" Margin="10" Background="#E0E0E0" Foreground="#A60400" />
+                            </TextBlock>
                         </StackPanel>
                     </Grid>
                 </Border>
             </Grid>
-            <Grid Grid.Row="1" Visibility="{Binding FinaliseMenuVisibility}" Background="#C0C0C0" Margin="5">
-                <StackPanel Orientation="Horizontal">
-                    <Button Width="50" Margin="10" Content="{StaticResource Clear_Icon1}" Command="{Binding ClickBack}"/>
-                </StackPanel>
-            </Grid>
+            <Border Grid.Row="1" BorderBrush="Firebrick" BorderThickness="0,3,0,0" Visibility="{Binding FinaliseMenuVisibility}">
+                <Grid Visibility="{Binding FinaliseMenuVisibility}" Background="#C0C0C0" >
+                    <StackPanel Orientation="Horizontal">
+                        <Button Width="50" Margin="10" Content="{StaticResource Clear_Icon1}" Command="{Binding ClickBack}"/>
+                        <Button Width="100"  Content="Меню закрытия" Command="{Binding ClickEditFinish}"  Margin="10"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
             <!-- Edit End -->
 
             <!-- AddMenu -->

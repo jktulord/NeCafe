@@ -221,7 +221,11 @@ namespace WpfProject.Model.Customer_Model
                     second_time_value = totalMinutes - first_time_value;
                     second_cost_value = customer.tariff.conditional_calculation_value;
                 }
-            }            
+            }
+            first_cost_value = Math.Round(first_cost_value, 2);
+            first_time_value = Math.Round(first_time_value, 2);
+            second_cost_value = Math.Round(second_cost_value, 2);
+            second_time_value = Math.Round(second_time_value, 2);
             RaisePropertyChanged(() => first_time_value);
             RaisePropertyChanged(() => first_cost_value);
             RaisePropertyChanged(() => second_time_value);
@@ -327,13 +331,18 @@ namespace WpfProject.Model.Customer_Model
             else
             {
                 if (if_first_discount_applied) { discount_value = 10; }
-                if (if_second_discount_applied || (discount_value < 5)) { discount_value = 5; }
-                if (if_third_discount_applied || (discount_value < 5)) { discount_value = 5; }
+                else if (if_second_discount_applied) { discount_value = 5; }
+                else if (if_third_discount_applied) { discount_value = 5; }
+                else { discount_value = 0; };
             }
 
             sum_value_without_discount = first_cost_value + second_cost_value;
             discount_benefit_value = sum_value_without_discount * (discount_value / 100);
             sum_value = sum_value_without_discount - discount_benefit_value;
+
+            sum_value_without_discount = Math.Round(sum_value_without_discount);
+            discount_benefit_value = Math.Round(discount_benefit_value);
+            sum_value = Math.Round(sum_value);
 
             RaisePropertyChanged(() => discount_value);
             RaisePropertyChanged(() => sum_value_without_discount);

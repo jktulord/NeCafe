@@ -153,6 +153,17 @@ namespace WpfProject.ViewModel.Pages
             }
         }
 
+        private string _FinalisingVisibility;
+        public string FinalisingVisibility
+        {
+            get { return _FinalisingVisibility; }
+            set
+            {
+                _FinalisingVisibility = value;
+                RaisePropertyChanged(() => FinalisingVisibility);
+            }
+        }
+
         private bool _HourTariffIsChecked;
         public bool HourTariffIsChecked
         {
@@ -245,7 +256,7 @@ namespace WpfProject.ViewModel.Pages
             get
             {
                 return new DelegateCommand((obj) => {
-                    SwitchToFinalise();
+                    SwitchToEdit();
                     EditCustomer = SelectedCustomer;
                     CustomerFinaliser = new CustomerFinaliserManager(EditCustomer);
                     RaisePropertyChanged(() => CustomerFinaliser);
@@ -260,6 +271,37 @@ namespace WpfProject.ViewModel.Pages
                 });
             }
         }
+        public ICommand ClickEditFinish
+        {
+            get
+            {
+                return new DelegateCommand((obj) => {
+                    SwitchToFinaliser();
+                    EditCustomer.Freeze();
+                });
+            }
+        }
+        public ICommand ClickEditFinishCancel
+        {
+            get
+            {
+                return new DelegateCommand((obj) => {
+                    SwitchToEdit();
+
+                });
+            }
+        }
+        public ICommand ClickEditFinishEnd
+        {
+            get
+            {
+                return new DelegateCommand((obj) => {
+                    SwitchToListBox();
+                    CustomerList.Remove(CustomerList.Where(i => i.id == EditCustomer.id).Single());
+                });
+            }
+        }
+
         public ICommand ClickSave
         {
             get
@@ -309,18 +351,28 @@ namespace WpfProject.ViewModel.Pages
             ListBoxVisibility = ConstLib.Visible;
             FinaliseMenuVisibility = ConstLib.Hidden;
             AddMenuVisibility = ConstLib.Hidden;
+            FinalisingVisibility = ConstLib.Hidden;
         }
         public void SwitchToAddMenu()
         {
             ListBoxVisibility = ConstLib.Hidden;
             FinaliseMenuVisibility = ConstLib.Hidden;
             AddMenuVisibility = ConstLib.Visible;
+            FinalisingVisibility = ConstLib.Hidden;
         }
-        public void SwitchToFinalise()
+        public void SwitchToEdit()
         {
             ListBoxVisibility = ConstLib.Hidden;
             FinaliseMenuVisibility = ConstLib.Visible;
             AddMenuVisibility = ConstLib.Hidden;
+            FinalisingVisibility = ConstLib.Hidden;
+        }
+        public void SwitchToFinaliser()
+        {
+            ListBoxVisibility = ConstLib.Hidden;
+            FinaliseMenuVisibility = ConstLib.Visible;
+            AddMenuVisibility = ConstLib.Hidden;
+            FinalisingVisibility = ConstLib.Visible;
         }
         public void Autoload()
         {
@@ -358,7 +410,6 @@ namespace WpfProject.ViewModel.Pages
                     RaisePropertyChanged(() => EditCustomerElapsedTimeDouble);
                     RaisePropertyChanged(() => EditCustomerStartTimeString);
                     RaisePropertyChanged(() => NewCustomerStartTimeString);
-                    
                 }
             });
         }
