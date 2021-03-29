@@ -261,40 +261,10 @@
             <!-- Edit End -->
 
             <!-- AddMenu -->
-            <Grid Grid.Row="0" Visibility="{Binding AddMenuVisibility}" Background="White">
 
-                <Grid Grid.Row="0" Background="#C0C0C0" Margin="5">
+            <Border Grid.Row="0" BorderBrush="Firebrick" BorderThickness="0,3,0,3" Width="300" Height="300" Visibility="{Binding AddMenuVisibility}">
+                <Grid Background="#C0C0C0">
 
-                    <!--<Border Grid.Column="0" Background="#FF7673" CornerRadius="0,0,10,10"/> -->
-                    <Line   
-                        Grid.Column="0"
-                        VerticalAlignment="Top"
-                        X1="0" Y1="0"
-                        X2="300" Y2="0"
-                        Stroke="#A60400"
-                        StrokeThickness="4"/>
-                    <Line   
-                        Grid.Column="0"
-                        VerticalAlignment="Bottom"
-                        X1="0" Y1="0"
-                        X2="100" Y2="0"
-                        Stroke="#A60400"
-                        StrokeThickness="4"/>
-                    <!--<Border Grid.Column="1" Background="#FF7673" CornerRadius="0,0,10,10"/>-->
-                    <Line   
-                        Grid.Column="1"
-                        VerticalAlignment="Top"
-                        X1="0" Y1="0"
-                        X2="300" Y2="0"
-                        Stroke="#A60400"
-                        StrokeThickness="4"/>
-                    <Line   
-                        Grid.Column="1"
-                        VerticalAlignment="Bottom"
-                        X1="0" Y1="0"
-                        X2="300" Y2="0"
-                        Stroke="#A60400"
-                        StrokeThickness="4"/>
                     <Canvas Grid.Column="0" Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Top">
                         <Canvas dat:Canvas.Left="10" dat:Canvas.Top="10">
                             <TextBlock Text="Имя"/>
@@ -332,6 +302,8 @@
                     </Canvas>
 
                 </Grid>
+            </Border>
+               
                 <!--
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="21*"/>
@@ -353,9 +325,8 @@
                     </TextBlock>
                 </StackPanel>
                 -->
-            </Grid>
 
-            <Grid Grid.Row="1" Visibility="{Binding AddMenuVisibility}">
+            <Grid Grid.Row="1" Visibility="{Binding AddMenuVisibility}" Background="#C0C0C0">
                 <StackPanel Orientation="Horizontal">
                     <Button Width="50" Margin="10" Content="{StaticResource Check_Icon}" Command="{Binding ClickAddingFinish}"/>
                     <Button Width="50" Margin="10" Content="{StaticResource Clear_Icon}" Command="{Binding ClickBack}"/>
