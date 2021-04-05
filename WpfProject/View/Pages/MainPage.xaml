@@ -120,16 +120,19 @@
             <Grid  Background="White" Grid.Row="0" Visibility="{Binding FinaliseMenuVisibility}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="200"></RowDefinition>
+                    <RowDefinition Height="170"></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
+                    <RowDefinition Height="150"></RowDefinition>
                     <RowDefinition Height="10"></RowDefinition>
                     <RowDefinition Height="150"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="300"></ColumnDefinition>
+                    <ColumnDefinition Width="350"></ColumnDefinition>
                     <ColumnDefinition Width="10"></ColumnDefinition>
-                    <ColumnDefinition Width="300"></ColumnDefinition>
+                    <ColumnDefinition Width="270"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 
@@ -140,7 +143,7 @@
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
-                        <Canvas Grid.Column="0" Width="200" Height="200" VerticalAlignment="Top">
+                        <Canvas Grid.Column="0" Width="200" Height="170" VerticalAlignment="Top">
                             <Canvas dat:Canvas.Left="10">
                                 <TextBlock Text="Имя" dat:Canvas.Top="4"/>
                                 <TextBlock Text="{Binding EditCustomer.firstname}" FontSize="16" dat:Canvas.Top="16"/>
@@ -174,7 +177,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Column="1" Grid.Row="3" BorderBrush="Firebrick" BorderThickness="0,3,0,3" Visibility="{Binding FinalisingVisibility}">
+                <Border Grid.Column="3" Grid.Row="1" BorderBrush="Firebrick" BorderThickness="0,3,0,3" Visibility="{Binding FinalisingVisibility}">
                     <Grid  Background="#C0C0C0">
                         <StackPanel HorizontalAlignment="Center">
                             <TextBlock HorizontalAlignment="Center" FontSize="14" >Скидки</TextBlock>
@@ -198,7 +201,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="1" Grid.Column="3"  BorderBrush="Firebrick" BorderThickness="0,3,0,3" Visibility="{Binding FinalisingVisibility}">
+                <Border Grid.Column="1" Grid.Row="3"  BorderBrush="Firebrick" BorderThickness="0,3,0,3" Visibility="{Binding FinalisingVisibility}">
                     <Grid Background="#C0C0C0">
                         <!-- <Border  Background="#FF7673" CornerRadius="0,0,10,10"/> -->
                         <StackPanel Orientation="Horizontal" >
@@ -246,9 +249,9 @@
                                    <TextBlock Text="{Binding CustomerFinaliser.sum_value, StringFormat={}{0}руб. }" FontSize="18"/>
                               </TextBlock>
                             </Canvas>
-                            <TextBlock>
-                                <Button FontSize="14" Content="Отмена" Command="{Binding ClickEditFinishCancel}" Width="120" Height="20" Margin="10" Background="#E0E0E0" Foreground="#A60400" />
-                                <Button FontSize="14" Content="Закрыть клиента" Command="{Binding ClickEditFinishEnd}" Width="120" Height="20" Margin="10" Background="#E0E0E0" Foreground="#A60400" />
+                            <TextBlock Margin="10">
+                                <Button FontSize="14" Content="Отмена" Command="{Binding ClickEditFinishCancel}" Width="100" Height="20" Margin="10" Background="#E0E0E0" Foreground="#A60400" />
+                                <Button FontSize="14" Content="Закрыть клиента" Command="{Binding ClickEditFinishEnd}" Width="110" Height="20" Margin="10" Background="#E0E0E0" Foreground="#A60400" />
                             </TextBlock>
                         </StackPanel>
                     </Grid>
