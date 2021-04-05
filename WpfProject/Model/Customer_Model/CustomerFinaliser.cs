@@ -347,9 +347,9 @@ namespace WpfProject.Model.Customer_Model
             discount_benefit_value = sum_value_without_discount * (discount_value / 100);
             sum_value = sum_value_without_discount - discount_benefit_value;
 
-            sum_value_without_discount = Math.Round(sum_value_without_discount);
-            discount_benefit_value = Math.Round(discount_benefit_value);
-            sum_value = Math.Round(sum_value);
+            sum_value_without_discount = Math.Round(sum_value_without_discount, 2);
+            discount_benefit_value = Math.Round(discount_benefit_value, 2);
+            sum_value = Math.Round(sum_value, 2);
 
             RaisePropertyChanged(() => discount_value);
             RaisePropertyChanged(() => sum_value_without_discount);

@@ -242,7 +242,7 @@
                                 <TextBlock dat:Canvas.Top="20" dat:Canvas.Left="50"> 
                                    <TextBlock> Скидка:</TextBlock>
                                    <TextBlock FontSize="18" Text="{Binding CustomerFinaliser.discount_value, StringFormat={}{0}% }"/> 
-                                   <TextBlock FontSize="18" Text="{Binding CustomerFinaliser.discount_benefit_value, StringFormat=({}{0}руб.) }"/> 
+                                   <TextBlock FontSize="18" Text="{Binding CustomerFinaliser.discount_benefit_value, StringFormat={}{0}руб. }"/> 
                                </TextBlock>
                                 <TextBlock dat:Canvas.Top="40" dat:Canvas.Left="63"> 
                                    <TextBlock> Итог:</TextBlock>
