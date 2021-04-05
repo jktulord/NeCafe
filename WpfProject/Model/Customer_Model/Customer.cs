@@ -140,8 +140,16 @@ namespace Model.Customer_Model
         }
         public void Freeze()
         {
-            this.Active = false;
-            freeze_time = DateTime.Now;
+            if (this.Active)
+            {
+                this.Active = false;
+                freeze_time = DateTime.Now;
+            }
+            else 
+            {
+                this.Active = false;
+            }
+                
             RaisePropertyChanged(() => FreezeTimeString);
         }
 

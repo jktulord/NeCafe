@@ -207,24 +207,24 @@
                         <StackPanel Orientation="Horizontal" >
                             <StackPanel Margin="10">
                                 <TextBlock Text="Тип"/>
-                                <TextBlock FontSize="16">
+                                <TextBlock FontSize="14">
                                     <TextBlock Text="{Binding EditCustomer.tariff.default_calculation_value}"/>
                                     <TextBlock Text="{Binding CustomerFinaliser.first_type_string}"/>
                                 </TextBlock>
-                                <TextBlock FontSize="16" >
+                                <TextBlock FontSize="14" >
                                     <TextBlock Text="{Binding EditCustomer.tariff.conditional_calculation_value}"/>
                                     <TextBlock Text="{Binding CustomerFinaliser.second_type_string}"/>
                                 </TextBlock>
                             </StackPanel>
                             <StackPanel Margin="10">
                                 <TextBlock Text="Время" dat:Canvas.Left="0" />
-                                <TextBlock Text="{Binding CustomerFinaliser.first_time_value, StringFormat= {}{0}мин. }" dat:Canvas.Left="0" FontSize="16"/>
-                                <TextBlock Text="{Binding CustomerFinaliser.second_time_value, StringFormat= {}{0}мин. }" dat:Canvas.Left="0" FontSize="16"/>
+                                <TextBlock Text="{Binding CustomerFinaliser.first_time_value, StringFormat= {}{0}мин. }" dat:Canvas.Left="0" FontSize="14"/>
+                                <TextBlock Text="{Binding CustomerFinaliser.second_time_value, StringFormat= {}{0}мин. }" dat:Canvas.Left="0" FontSize="14"/>
                             </StackPanel>
                             <StackPanel Margin="10">
                                 <TextBlock Text="Всего" dat:Canvas.Left="180"/>
-                                <TextBlock Text="{Binding CustomerFinaliser.first_cost_value,  StringFormat= {}{0}руб. }" dat:Canvas.Left="180" FontSize="16"/>
-                                <TextBlock Text="{Binding CustomerFinaliser.second_cost_value, StringFormat={}{0}руб. }" dat:Canvas.Left="180" FontSize="16"/>
+                                <TextBlock Text="{Binding CustomerFinaliser.first_cost_value,  StringFormat= {}{0}руб. }" dat:Canvas.Left="180" FontSize="14"/>
+                                <TextBlock Text="{Binding CustomerFinaliser.second_cost_value, StringFormat={}{0}руб. }" dat:Canvas.Left="180" FontSize="14"/>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -234,15 +234,16 @@
                     <Grid Background="#C0C0C0">
                         <!--<Border Name="mask" Background="#FF7673" CornerRadius="10"/> -->
                         <StackPanel HorizontalAlignment="Center" >
-                            <Canvas Margin="0,20,0,0" Width="100" Height="60">
+                            <Canvas Margin="0,25,25,0" Width="120" Height="60">
                                 <TextBlock> 
                                     <TextBlock> Итог без скидки:</TextBlock>
                                     <TextBlock FontSize="18" Text="{Binding CustomerFinaliser.sum_value_without_discount, StringFormat={}{0}руб. }" />
                                 </TextBlock>
                                 <TextBlock dat:Canvas.Top="20" dat:Canvas.Left="50"> 
                                    <TextBlock> Скидка:</TextBlock>
-                                   <TextBlock FontSize="18" Text="{Binding CustomerFinaliser.discount_value, StringFormat={}{0}% }"/> 
-                                   <TextBlock FontSize="18" Text="{Binding CustomerFinaliser.discount_benefit_value, StringFormat={}{0}руб. }"/> 
+                                   <TextBlock FontSize="18" Text="{Binding CustomerFinaliser.discount_value, StringFormat={}{0}% }"/>
+                                    <TextBlock FontSize="14" Text="-"></TextBlock>
+                                   <TextBlock FontSize="14" Text="{Binding CustomerFinaliser.discount_benefit_value, StringFormat={}{0}руб. }"/> 
                                </TextBlock>
                                 <TextBlock dat:Canvas.Top="40" dat:Canvas.Left="63"> 
                                    <TextBlock> Итог:</TextBlock>
