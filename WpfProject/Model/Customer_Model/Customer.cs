@@ -127,19 +127,29 @@ namespace Model.Customer_Model
                 RaisePropertyChanged(() => ElapsedTimeString);
             }
         }
-        public void Freeze()
+        public void AutoFreeze()
         {
             if (this.Active)
             {
-                this.Active = false;
-                freeze_time = DateTime.Now;
-                RaisePropertyChanged(() => FreezeTimeString);
+                Freeze();
             }
             else
             {
-                this.Active = true;
+                UnFreeze();
             }
-            
+        }
+        public void Freeze()
+        {
+            this.Active = false;
+            freeze_time = DateTime.Now;
+            RaisePropertyChanged(() => FreezeTimeString);
+        }
+
+        public void UnFreeze()
+        {
+            this.Active = true;
+            freeze_time = new DateTime();
+            RaisePropertyChanged(() => FreezeTimeString);
         }
     }
     [Serializable]
