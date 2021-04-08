@@ -39,26 +39,7 @@
 
             <!-- ListBox -->
             <Grid Grid.Row="0">
-                <!-- <Grid.RowDefinitions>
-                    <RowDefinition Height="30"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Background="White"> 
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5"> 
-                        <Button Content="ID" Command="{Binding ClickSortById}"/>
-                    </TextBlock>
-                    <TextBlock Margin="120,5,5,5">
-                        <Button Content="Имя"/> 
-                    </TextBlock>
-                    <TextBlock Margin="100,5,5,5">
-                        <Button Content="Время Начала"/>  
-                    </TextBlock>
-                    <TextBlock Margin="40,5,5,5">
-                        <Button Content="Время прошло"/> 
-                    </TextBlock>
-                </StackPanel>
-                </TextBlock> -->
+                
 
                 <ListBox Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" ItemsSource="{Binding CustomerList}" SelectedItem="{Binding SelectedCustomer}" Visibility="{Binding ListBoxVisibility}" Background="White">
 
