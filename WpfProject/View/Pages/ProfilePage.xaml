@@ -6,9 +6,13 @@
       xmlns:local="clr-namespace:WpfProject.View.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ProfilePage">
-
-    <Grid>
+      Title="ProfilePage" 
+      xmlns:vm="clr-namespace:WpfProject.ViewModel.Pages">
+    <Page.DataContext>
+        <vm:ProfilePageVM></vm:ProfilePageVM>
+    </Page.DataContext>
+    <Grid Background="White">
+        
         
     </Grid>
 </Page>
