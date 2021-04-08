@@ -193,12 +193,12 @@ namespace WpfProject.Model.Customer_Model
                 if (customer.tariff.default_calculation_type == ConstLib.Calculation_Minute) // минутное вычисление
                 {
                     first_time_value = condition_value;
-                    first_cost_value = Math.Round(first_time_value * customer.tariff.default_calculation_value, 2);
+                    first_cost_value = first_time_value * customer.tariff.default_calculation_value;
                 }
                 else if (customer.tariff.default_calculation_type == ConstLib.Calculation_Hour) // часовое
                 {
                     first_time_value = condition_value;
-                    first_cost_value = Math.Round(Math.Ceiling(first_time_value) * customer.tariff.default_calculation_value, 2);
+                    first_cost_value = Math.Ceiling(first_time_value) * customer.tariff.default_calculation_value;
                 }
                 else // стоп-чек
                 {
@@ -214,7 +214,7 @@ namespace WpfProject.Model.Customer_Model
                 else if (customer.tariff.conditional_calculation_type == ConstLib.Calculation_Hour)
                 {
                     second_time_value = totalMinutes - first_time_value;
-                    second_cost_value = Math.Round(second_time_value * customer.tariff.conditional_calculation_value, 2);
+                    second_cost_value = second_time_value * customer.tariff.conditional_calculation_value;
                 }
                 else
                 {
@@ -252,12 +252,12 @@ namespace WpfProject.Model.Customer_Model
                 if (customer.tariff.default_calculation_type == ConstLib.Calculation_Minute) // минутное вычисление
                 {
                     first_time_value = totalMinutes;
-                    first_cost_value = Math.Round(first_time_value * customer.tariff.default_calculation_value, 2);
+                    first_cost_value = first_time_value * customer.tariff.default_calculation_value;
                 }
                 else if (customer.tariff.default_calculation_type == ConstLib.Calculation_Hour) // часовое
                 {
                     first_time_value = totalMinutes / 60;
-                    first_cost_value = Math.Round(Math.Ceiling(first_time_value) * customer.tariff.default_calculation_value, 2);
+                    first_cost_value = Math.Ceiling(first_time_value) * customer.tariff.default_calculation_value;
                 }
                 else // стоп-чек
                 {
@@ -271,12 +271,12 @@ namespace WpfProject.Model.Customer_Model
                 if (customer.tariff.conditional_calculation_type == ConstLib.Calculation_Minute) // минутное вычисление
                 {
                     second_time_value = totalMinutes;
-                    second_cost_value = Math.Round(second_time_value * customer.tariff.conditional_calculation_value, 2);
+                    second_cost_value = second_time_value * customer.tariff.conditional_calculation_value;
                 }
                 else if (customer.tariff.conditional_calculation_type == ConstLib.Calculation_Hour) // часовое
                 {
                     second_time_value = totalMinutes / 60;
-                    second_cost_value = Math.Round(Math.Ceiling(second_time_value) * customer.tariff.conditional_calculation_value, 2);
+                    second_cost_value = Math.Ceiling(second_time_value) * customer.tariff.conditional_calculation_value;
                 }
                 else // стоп-чек
                 {
@@ -284,6 +284,10 @@ namespace WpfProject.Model.Customer_Model
                     second_cost_value = customer.tariff.conditional_calculation_value;
                 }
             }
+            first_cost_value = Math.Round(first_cost_value, 2);
+            first_time_value = Math.Round(first_time_value, 2);
+            second_cost_value = Math.Round(second_cost_value, 2);
+            second_time_value = Math.Round(second_time_value, 2);
             RaisePropertyChanged(() => first_time_value);
             RaisePropertyChanged(() => first_cost_value);
             RaisePropertyChanged(() => second_time_value);
@@ -300,19 +304,22 @@ namespace WpfProject.Model.Customer_Model
             if (customer.tariff.default_calculation_type == ConstLib.Calculation_Minute) // минутное вычисление
             {
                 first_time_value = totalMinutes;
-                first_cost_value = Math.Round(first_time_value * customer.tariff.default_calculation_value, 2);
+                first_cost_value = first_time_value * customer.tariff.default_calculation_value;
             }
             else if (customer.tariff.default_calculation_type == ConstLib.Calculation_Hour) // часовое
             {
                 first_time_value = totalMinutes / 60;
-                first_cost_value = Math.Round(Math.Ceiling(first_time_value) * customer.tariff.default_calculation_value, 2);
+                first_cost_value = Math.Ceiling(first_time_value) * customer.tariff.default_calculation_value;
             }
             else // стоп-чек
             {
                 first_time_value = totalMinutes;
                 first_cost_value = customer.tariff.default_calculation_value;
             }
-            
+            first_cost_value = Math.Round(first_cost_value, 2);
+            first_time_value = Math.Round(first_time_value, 2);
+            second_cost_value = Math.Round(second_cost_value, 2);
+            second_time_value = Math.Round(second_time_value, 2);
             RaisePropertyChanged(() => first_time_value);
             RaisePropertyChanged(() => first_cost_value);
             RaisePropertyChanged(() => second_time_value);
@@ -340,9 +347,9 @@ namespace WpfProject.Model.Customer_Model
             discount_benefit_value = sum_value_without_discount * (discount_value / 100);
             sum_value = sum_value_without_discount - discount_benefit_value;
 
-            sum_value_without_discount = Math.Round(sum_value_without_discount);
-            discount_benefit_value = Math.Round(discount_benefit_value);
-            sum_value = Math.Round(sum_value);
+            sum_value_without_discount = Math.Round(sum_value_without_discount, 2);
+            discount_benefit_value = Math.Round(discount_benefit_value, 2);
+            sum_value = Math.Round(sum_value, 2);
 
             RaisePropertyChanged(() => discount_value);
             RaisePropertyChanged(() => sum_value_without_discount);

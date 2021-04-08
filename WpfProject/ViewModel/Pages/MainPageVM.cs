@@ -342,7 +342,7 @@ namespace WpfProject.ViewModel.Pages
         {
             get
             {
-                return new DelegateCommand((obj) => { EditCustomer.Freeze(); });
+                return new DelegateCommand((obj) => { EditCustomer.AutoFreeze(); });
             }
         }
         // Переключение подокон
