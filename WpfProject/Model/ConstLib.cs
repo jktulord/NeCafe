@@ -11,8 +11,12 @@ namespace WpfProject.Model
         public const string Visible = "Visible";
         public const string Hidden = "Hidden";
 
+        // Condition result type
+        public const string Black = "Black";
+        public const string White = "White";
+
         // Tariff States
-        
+
 
         // Tariff Type
         public const string Calculation_Minute = "Минуту";

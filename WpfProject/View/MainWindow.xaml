@@ -37,7 +37,7 @@
         <Grid Grid.Column="0">
             <!-- Left menu -->
             <Grid.RowDefinitions>
-                <RowDefinition Height="45"/>
+                <RowDefinition Height="55"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
@@ -52,7 +52,7 @@
                     FontSize="10"
                     Text="Кассир: Иванов И. И." />
                 </StackPanel>
-                <Button Margin="5"  BorderThickness="0" Height="20" Width="70" VerticalAlignment="Bottom" Command="{Binding ClickProfilePage}">Профили</Button>
+                <Button Margin="5"  BorderThickness="0" Height="20" Width="70" VerticalAlignment="Bottom" Command="{Binding ClickProfilePage}">Выйти</Button>
             </Grid>
             
             <Grid Grid.Row="1">
@@ -66,8 +66,9 @@
                     <Button BorderThickness="0" Command="{Binding ClickMainPage}">Главная</Button>
                     <Button BorderThickness="0" Command="{Binding ClickHistoryPage}" Height="20" VerticalAlignment="Top">История</Button>
                     <Button BorderThickness="0" Command="{Binding ClickHelpPage}" Height="20" VerticalAlignment="Top">Справка</Button>
-                    <Button BorderThickness="0" Height="20" VerticalAlignment="Top" Command="{Binding ClickTariffPage}">Тарифы</Button>
+                    <Button BorderThickness="0" Command="{Binding ClickTariffPage}" Height="20" VerticalAlignment="Top" >Тарифы</Button>
                     <Button BorderThickness="0" Command="{Binding ClickDBPage}" Height="20" VerticalAlignment="Top">База Данных</Button>
+                    <Button BorderThickness="0" Command="{Binding ClickDBPage}" Height="20" VerticalAlignment="Top">Профили</Button>
                     <Button BorderThickness="0" Height="20" VerticalAlignment="Top">Настройки</Button>
                 </StackPanel>
             </Grid>

@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows.Input;
+using WpfProject.Model;
 using WpfProject.Model.User_Model;
 
 namespace WpfProject.ViewModel.Pages
@@ -41,6 +43,17 @@ namespace WpfProject.ViewModel.Pages
                 RaisePropertyChanged(() => CurPassword);
             }
         }
+        private String _PasswordColor;
+        public String PasswordColor
+        {
+            get { return _PasswordColor; }
+            set
+            {
+                _PasswordColor = value;
+                RaisePropertyChanged(() => PasswordColor);
+            }
+        }
+
         private String _AwarenessLine;
         public String AwarenessLine
         {
@@ -51,10 +64,48 @@ namespace WpfProject.ViewModel.Pages
                 RaisePropertyChanged(() => AwarenessLine);
             }
         }
+
+        public ICommand ClickShowPassword 
+        {
+            get
+            {
+                return new DelegateCommand((obj) => {
+                    if (PasswordColor == ConstLib.White)
+                    {
+                        PasswordColor = ConstLib.Black;
+                    }
+                    else
+                    {
+                        PasswordColor = ConstLib.White;
+                    }
+                    
+                });
+            }
+        }
+        public ICommand ClickSignIn
+        {
+            get
+            {
+                return new DelegateCommand((obj) => {
+                    if (CurPassword == SelectedUser.password)
+                    {
+                        AwarenessLine = "Авторизировано";
+                    }
+                    else
+                    {
+                        AwarenessLine = "Не верный пароль";
+                    }
+
+                });
+            }
+        }
+
         public ProfileAutificationPageVM()
         {
+            PasswordColor = ConstLib.Black;
+            AwarenessLine = "";
             UserList = new ObservableCollection<User>();
-            UserList.Add(new User() { firstname = "123", password = "123" }) ;
+            UserList.Add(new User() { firstname = "admin", password = "admin" }) ;
             UserList.Add(new User() { firstname = "Salamander", password = "13" });
             UserList.Add(new User() { firstname = "qwerty", password = "qwerty" });
         }
