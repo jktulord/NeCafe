@@ -28,6 +28,12 @@ namespace WpfProject.Model
         public const string Condition_Hour = "Часов";
 
         // Condition result type
+
+
+        // Condition result type
+        public const string Manager = "Управляющий";
+        public const string Admin = "Админ";
+        public const string Kassier = "Кассир";
         public enum Condition_Result
         {
             Overall,

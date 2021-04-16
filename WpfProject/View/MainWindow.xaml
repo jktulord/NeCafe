@@ -70,7 +70,7 @@
                         <Button BorderThickness="0" Command="{Binding ClickHelpPage}" Height="20" VerticalAlignment="Top">Справка</Button>
                         <Button BorderThickness="0" Command="{Binding ClickTariffPage}" Height="20" VerticalAlignment="Top" >Тарифы</Button>
                         <Button BorderThickness="0" Command="{Binding ClickDBPage}" Height="20" VerticalAlignment="Top">База Данных</Button>
-                        <Button BorderThickness="0" Command="{Binding ClickDBPage}" Height="20" VerticalAlignment="Top">Профили</Button>
+                        <Button BorderThickness="0" Command="{Binding ClickProfilePage}" Height="20" VerticalAlignment="Top">Профили</Button>
                         <Button BorderThickness="0" Height="20" VerticalAlignment="Top">Настройки</Button>
                     </StackPanel>
                 </Grid>

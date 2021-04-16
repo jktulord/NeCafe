@@ -121,6 +121,17 @@ namespace WpfProject.ViewModel
             }
         }
 
+        private int _MenuWidth;
+        public int MenuWidth
+        {
+            get { return _MenuWidth; }
+            set
+            {
+                _MenuWidth = value;
+                RaisePropertyChanged(() => MenuWidth);
+            }
+        }
+
         public ICommand ClickProfilePage
         {
             get
