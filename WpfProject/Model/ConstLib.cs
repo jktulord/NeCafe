@@ -34,11 +34,8 @@ namespace WpfProject.Model
         public const string Manager = "Управляющий";
         public const string Admin = "Админ";
         public const string Kassier = "Кассир";
-        public enum Condition_Result
-        {
-            Overall,
-            Separate
-        }
+
+
         public const string Condition_Result_Overall = "Общее время вычисляется по";
         public const string Condition_Result_Separate = "Следующее время считается по";
 
@@ -76,6 +73,15 @@ namespace WpfProject.Model
             {
                 Add(Show_Type_Simple);
                 Add(Show_Type_Full);
+            }
+        }
+        public class UserTypes : ObservableCollection<string>
+        {
+            public UserTypes()
+            {
+                Add(Manager);
+                Add(Admin);
+                Add(Kassier);
             }
         }
 
